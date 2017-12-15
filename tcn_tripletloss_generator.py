@@ -8,6 +8,7 @@ from keras import backend as K
 import keras
 from keras.models import load_model, model_from_json
 import random
+import keras.backend.tensorflow_backend as KTF
 
 import numpy as np
 from glob import glob
@@ -165,11 +166,11 @@ def train():
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
     logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = len(train_list)/batchsize, epochs = train_epoch, callbacks=[checkpoint])
 
-
 def train_aug():
     model_name = 'inception'
     base_model = create_base_network(model_name)
     base_model.summary()
+
     if K.image_data_format() == 'channels_first':
         input_shape = (3, 224, 224)
     else:
@@ -213,7 +214,8 @@ def train_aug():
     train_epoch = 100
     out_model_path = './model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
-    logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint])
+    tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
+    logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint, tensorboard])
 
 
 
