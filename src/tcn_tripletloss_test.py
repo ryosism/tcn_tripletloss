@@ -136,7 +136,7 @@ def test():
     # CRITICAL	50	停止など致命的な問題
 
     # ログのファイル出力先を設定（3）
-    fh = logging.FileHandler('test.log')
+    fh = logging.FileHandler('output_test.log')
     logger.addHandler(fh)
 
     # ログのコンソール出力の設定（4）
@@ -201,8 +201,6 @@ def test():
 
         logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
         result.append(float(correct / query))
-
-
 
     logger.log(30, result)
 

@@ -246,7 +246,6 @@ def test():
     dlist_v1.sort()
     dlist_v2.sort()
 
-    fout = open("result.txt", 'w')
     for dirs in zip(dlist_v1, dlist_v2):
         flist_v1 = glob(path.join(dirs[0], '*.png'))
         flist_v2 = glob(path.join(dirs[1], '*.png'))
@@ -273,12 +272,11 @@ def test():
             print(i, nn, min_dist)
             if i == nn:
                 correct += 1
-            fout.write('{} {} {}\n'.format(flist_v1[i], nn, min_dist))
-    fout.close()
+
     print("{} files, {} corrects, test_loss = {}".format(query, correct, 1-float(correct / query)))
 
 if __name__ == '__main__':
-    # train_aug()
-    test()
+    train_aug()
+    # test()
 
 #model.fit_generator(...)
