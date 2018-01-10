@@ -42,8 +42,10 @@ def create_base_network(model_name):
         model = Model(input = vgg_model.input, output = vgg_model.output)
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
-        x = inception_model.get_layer('dense_1').output
+        x = inception_model.get_layer('mixed9').output
         x = GlobalAveragePooling2D()(x)
+
+
         x = Dense(1024, activation='relu')(x)
         x = Dense(128)(x)
         model = Model(input = inception_model.input, output = x)
@@ -276,7 +278,7 @@ def test():
     print("{} files, {} corrects, test_loss = {}".format(query, correct, 1-float(correct / query)))
 
 if __name__ == '__main__':
-    train_aug()
+    # train_aug()
     test()
 
 #model.fit_generator(...)
