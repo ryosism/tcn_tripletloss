@@ -13,16 +13,15 @@ import keras.backend.tensorflow_backend as KTF
 import numpy as np
 from glob import glob
 from os import path
-import os
 import sys
 
+import json
+import time
+
 # argv[]
-# argv[1] : input directory for anchor
-# argv[2] : input directory for positive
-# argv[3] : epoch_num
-# argv[4] : input directory for test_anchor
-# argv[5] : input directory for test_positive
-#
+# argv[1] : json directoried
+# argv[2] : epoch_num
+
 # if you wanna train, please add "train_aug()" after "if __name__ == '__main__':" .
 
 def identity_loss(y_true, y_pred):
@@ -42,7 +41,7 @@ def create_base_network(model_name):
         model = Model(input = vgg_model.input, output = vgg_model.output)
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
-        x = inception_model.get_layer('mixed9').output
+        x = inception_model.get_layer('mixed5').output
         x = GlobalAveragePooling2D()(x)
 
 
@@ -99,7 +98,7 @@ def batch_generator(pairs, num_batches = 32):
 
 def random_batch_generator(train_list, num_batches = 32):
     while True:
-        anc =[]
+        anc = []
         pos = []
         neg = []
         np.random.shuffle(train_list)
@@ -109,7 +108,7 @@ def random_batch_generator(train_list, num_batches = 32):
             positive = train_list[i][frame][1]
             while True:
                n = random.randint(0, len(train_list[i])-1)
-               if n != frame:
+               if abs(n - frame) < 30:
                    break
             negative = train_list[i][n][1]
             pos.append(get_img(positive))
@@ -196,84 +195,98 @@ def train_aug():
     model_arch = model.to_json()
     fout = open("model.json", 'w').write(model_arch)
 
-    dlist_v1 = glob(path.join(sys.argv[1], '*'))
-    dlist_v2 = glob(path.join(sys.argv[2], '*'))
-    dlist_v1.sort()
-    dlist_v2.sort()
+    jlist_v1 = glob(path.join(sys.argv[1], '*'))
+    jlist_v1.sort()
 
     train_list =[]
+    total_recipes = 0
     total_frames = 0
-    for dirs in zip(dlist_v1, dlist_v2):
-        name_list =[]
-        flist_v1 = glob(path.join(dirs[0], '*.png'))
-        flist_v2 = glob(path.join(dirs[1], '*.png'))
-        flist_v1.sort()
-        flist_v2.sort()
-        min_num = min(len(flist_v1), len(flist_v2))
-        if min_num == 0 : continue
-        for pair in zip(flist_v1[:min_num], flist_v2[:min_num]):
-            name_list.append((pair[0], pair[1]))
-            print(pair[0], pair[1])
-        train_list.append(name_list)
-        total_frames += len(name_list)
-    print("len(train_list), total_frames = ", len(train_list), total_frames)
-    batchsize = 32
-    train_epoch = int(sys.argv[3])
+
+    # jsonファイルごとに
+    for jfile in jlist_v1:
+        # 読みこみ
+        f = open(jfile, "r")
+        JSON = json.load(f)
+        # レシピIDごとに
+        for idnum in range(len(JSON['data'])):
+            name_list =[]
+            # 1ペアごとに
+            for pic in (JSON['data'][idnum][1]['pic']):
+                # オーギュメンテーション
+                # -30フレームから30フレーム後まで
+                for t in range(-30,30,1):
+                    # dictにファイルパス、fileにファイル名が入る
+                    po_path, file = path.split(pic['positive'])
+                    aug_po = po_path + '/' + str(pic['positive_index']+t).zfill(5) + '.png'
+                    print(pic['anchor'], aug_po)
+                    if path.exists(aug_po):
+                        name_list.append((pic['anchor'], aug_po))
+
+                        train_list.append(name_list)
+                        total_frames += len(name_list)
+
+            total_recipes += 1
+    print("len(train_list), total_recipes = ", len(train_list), total_recipes)
+    batchsize = 64
+    train_epoch = int(sys.argv[2])
     out_model_path = './../model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
     tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
-    logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint, tensorboard])
 
+    now = time.ctime()
+    parsed = time.strptime(now)
+    csvlogger = keras.callbacks.CSVLogger('{}.csv'.format(time.strftime("%Y%m%d_%H:%M:%S", parsed)), separator=',', append=False)
+    logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint, tensorboard, csvlogger])
 
-
-def test():
-    query = 0
-    correct = 0
-
-    model_name = 'inception'
-    base_model = create_base_network(model_name)
-    if K.image_data_format() == 'channels_first':
-        input_shape = (3, 224, 224)
-    else:
-        input_shape = (224, 224, 3)
-    model = build_predict(base_model, input_shape=input_shape)
-    model.summary()
-    model.load_weights('./../model/weights.198.hd5')
-
-    dlist_v1 = glob(path.join(sys.argv[4], '*'))
-    dlist_v2 = glob(path.join(sys.argv[5], '*'))
-
-    dlist_v1.sort()
-    dlist_v2.sort()
-
-    for dirs in zip(dlist_v1, dlist_v2):
-        flist_v1 = glob(path.join(dirs[0], '*.png'))
-        flist_v2 = glob(path.join(dirs[1], '*.png'))
-        flist_v1.sort()
-        flist_v2.sort()
-        print (len(flist_v1), len(flist_v2))
-        query += len(flist_v1)
-        for i, ref in enumerate(flist_v1):
-            ref_img = get_img(ref)
-            ref_img = np.expand_dims(ref_img, axis=0)
-            r_feat = model.predict(ref_img,batch_size=1)
-            #print("r_feat = ",np.asarray(r_feat).shape)
-            #print (r_feat)
-            min_dist = 1000
-            nn = 0
-            for j, q in enumerate(flist_v2):
-                q_img = get_img(q)
-                q_img = np.expand_dims(q_img, axis=0)
-                q_feat = model.predict(q_img,batch_size=1)
-                dist = np.linalg.norm( r_feat[0] - q_feat[0])
-                if dist < min_dist:
-                    min_dist = dist
-                    nn = j
-            print(i, nn, min_dist)
-            if i == nn:
-                correct += 1
-
-    print("{} files, {} corrects, test_loss = {}".format(query, correct, 1-float(correct / query)))
+#
+# def test():
+#     query = 0
+#     correct = 0
+#
+#     model_name = 'inception'
+#     base_model = create_base_network(model_name)
+#     if K.image_data_format() == 'channels_first':
+#         input_shape = (3, 224, 224)
+#     else:
+#         input_shape = (224, 224, 3)
+#     model = build_predict(base_model, input_shape=input_shape)
+#     model.summary()
+#     model.load_weights('./../model/weights.198.hd5')
+#
+#     dlist_v1 = glob(path.join(sys.argv[4], '*'))
+#     dlist_v2 = glob(path.join(sys.argv[5], '*'))
+#
+#     dlist_v1.sort()
+#     dlist_v2.sort()
+#
+#     for dirs in zip(dlist_v1, dlist_v2):
+#         flist_v1 = glob(path.join(dirs[0], '*.png'))
+#         flist_v2 = glob(path.join(dirs[1], '*.png'))
+#         flist_v1.sort()
+#         flist_v2.sort()
+#         print (len(flist_v1), len(flist_v2))
+#         query += len(flist_v1)
+#         for i, ref in enumerate(flist_v1):
+#             ref_img = get_img(ref)
+#             ref_img = np.expand_dims(ref_img, axis=0)
+#             r_feat = model.predict(ref_img,batch_size=1)
+#             #print("r_feat = ",np.asarray(r_feat).shape)
+#             #print (r_feat)
+#             min_dist = 1000
+#             nn = 0
+#             for j, q in enumerate(flist_v2):
+#                 q_img = get_img(q)
+#                 q_img = np.expand_dims(q_img, axis=0)
+#                 q_feat = model.predict(q_img,batch_size=1)
+#                 dist = np.linalg.norm( r_feat[0] - q_feat[0])
+#                 if dist < min_dist:
+#                     min_dist = dist
+#                     nn = j
+#             print(i, nn, min_dist)
+#             if i == nn:
+#                 correct += 1
+#
+#     print("{} files, {} corrects, test_loss = {}".format(query, correct, 1-float(correct / query)))
 
 if __name__ == '__main__':
     train_aug()

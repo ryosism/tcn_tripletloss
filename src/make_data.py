@@ -1,17 +1,28 @@
 from collections import OrderedDict
 import json
 import os
+import filecmp
+from glob import glob
+
+# ----------README----------
+# jsonっぽく出力するスクリプト
+# 大きい配列で出力されるけどそのままだと読み込めないから冒頭はちゃんとしたjsonフォーマットに直してね
+# --------------------------
 
 def make_one_pic():
-    # print("anchor↓")
+    print("anchor↓")
     anchor = input()
     if anchor == "":
         return 1
     anchor = os.path.relpath(anchor)
 
-    # print("positive↓")
+    print("positive↓")
     positive = input()
-    positive = os.path.relpath(positive)
+
+    # samepic()でアノテーション&リネームしてしまったpositiveを入力すると元々のframeから同じ画像を返す
+    positive = samepic(positive)
+    print(positive)
+    # positive = os.path.relpath(positive)
 
     # ファイル名を取り出して
     filename = os.path.basename(positive)
@@ -54,9 +65,27 @@ def make_RECIPES():
 
     return RECIPES
 
+
+def samepic(anno):
+    # anno : すでにポジティブでリネームしてしまった画像
+
+    for frame in frames:
+        if filecmp.cmp(anno.strip(),frame):
+            return frame
+
+    print('same picture not found')
+    return 'none'
+
+
 if __name__ == '__main__':
     print("folder_num")
     num = input()
+
+    print("frame_folder_path")
+    dir = input()
+    # frames : 見つけたい画像が入ってるはずのフォルダの中のファイル一覧[string]
+    frames = glob(os.path.join(dir, '*'))
+
     print("料理名")
     name = input()
 
