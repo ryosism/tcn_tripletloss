@@ -166,7 +166,7 @@ def test():
         # print('epoch ',epoch)
         logger.log(30, 'epoch {}'.format(epoch))
 
-        model.load_weights('./../model_01/model/weights.{}.hd5'.format(epoch))
+        model.load_weights('./../model/weights.{}.hd5'.format(epoch))
 
         query = 0
         correct = 0
@@ -179,7 +179,9 @@ def test():
             # print (len(flist_v1), len(flist_v2))
             logger.log(30, '{} {}'.format(len(flist_v1), len(flist_v2)))
             query += len(flist_v1)
+
             for i, ref in enumerate(flist_v1):
+                print("flist_v1", i)
                 ref_img = get_img(ref)
                 ref_img = np.expand_dims(ref_img, axis=0)
                 r_feat = model.predict(ref_img,batch_size=1)
@@ -187,6 +189,7 @@ def test():
                 min_dist = 1000
                 nn = 0
                 for j, q in enumerate(flist_v2):
+                    print("flist_v2", j)
                     q_img = get_img(q)
                     q_img = np.expand_dims(q_img, axis=0)
                     q_feat = model.predict(q_img,batch_size=1)
@@ -199,8 +202,13 @@ def test():
                 if i == nn:
                     correct += 1
 
-        logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
-        result.append(float(correct / query))
+        if correct == 0:
+            logger.log(30, "{} files, {} corrects, accuracy = zero divided".format(query, correct))
+            result.append(0)
+        else:
+            logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
+            result.append(float(correct / query))
+
 
     logger.log(30, result)
 

@@ -43,8 +43,6 @@ def create_base_network(model_name):
         inception_model = InceptionV3(weights='imagenet', include_top=False)
         x = inception_model.get_layer('mixed5').output
         x = GlobalAveragePooling2D()(x)
-
-
         x = Dense(1024, activation='relu')(x)
         x = Dense(128)(x)
         model = Model(input = inception_model.input, output = x)
@@ -238,58 +236,8 @@ def train_aug():
     csvlogger = keras.callbacks.CSVLogger('{}.csv'.format(time.strftime("%Y%m%d_%H:%M:%S", parsed)), separator=',', append=False)
     logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint, tensorboard, csvlogger])
 
-#
-# def test():
-#     query = 0
-#     correct = 0
-#
-#     model_name = 'inception'
-#     base_model = create_base_network(model_name)
-#     if K.image_data_format() == 'channels_first':
-#         input_shape = (3, 224, 224)
-#     else:
-#         input_shape = (224, 224, 3)
-#     model = build_predict(base_model, input_shape=input_shape)
-#     model.summary()
-#     model.load_weights('./../model/weights.198.hd5')
-#
-#     dlist_v1 = glob(path.join(sys.argv[4], '*'))
-#     dlist_v2 = glob(path.join(sys.argv[5], '*'))
-#
-#     dlist_v1.sort()
-#     dlist_v2.sort()
-#
-#     for dirs in zip(dlist_v1, dlist_v2):
-#         flist_v1 = glob(path.join(dirs[0], '*.png'))
-#         flist_v2 = glob(path.join(dirs[1], '*.png'))
-#         flist_v1.sort()
-#         flist_v2.sort()
-#         print (len(flist_v1), len(flist_v2))
-#         query += len(flist_v1)
-#         for i, ref in enumerate(flist_v1):
-#             ref_img = get_img(ref)
-#             ref_img = np.expand_dims(ref_img, axis=0)
-#             r_feat = model.predict(ref_img,batch_size=1)
-#             #print("r_feat = ",np.asarray(r_feat).shape)
-#             #print (r_feat)
-#             min_dist = 1000
-#             nn = 0
-#             for j, q in enumerate(flist_v2):
-#                 q_img = get_img(q)
-#                 q_img = np.expand_dims(q_img, axis=0)
-#                 q_feat = model.predict(q_img,batch_size=1)
-#                 dist = np.linalg.norm( r_feat[0] - q_feat[0])
-#                 if dist < min_dist:
-#                     min_dist = dist
-#                     nn = j
-#             print(i, nn, min_dist)
-#             if i == nn:
-#                 correct += 1
-#
-#     print("{} files, {} corrects, test_loss = {}".format(query, correct, 1-float(correct / query)))
 
 if __name__ == '__main__':
     train_aug()
-    # test()
 
 #model.fit_generator(...)
