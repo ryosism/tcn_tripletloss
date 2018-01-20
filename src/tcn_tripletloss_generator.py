@@ -215,6 +215,7 @@ def train_aug():
                 for t in range(-30,30,1):
                     # dictにファイルパス、fileにファイル名が入る
                     po_path, file = path.split(pic['positive'])
+                    po_index = pic['positive_index']
                     aug_po = po_path + '/' + str(pic['positive_index']+t).zfill(5) + '.png'
                     print(pic['anchor'], aug_po)
                     if path.exists(aug_po):
