@@ -412,40 +412,6 @@
                     }
                 ]
             }
-        ],
-        [
-            {
-                "folder": "1910001915"
-            },
-            {
-                "pic": [
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/003/1910001915/1.png",
-                        "positive": "../../dataset/RakutenDS/triplet/003/frame/00902.png",
-                        "positive_index": 902
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/003/1910001915/2.png",
-                        "positive": "../../dataset/RakutenDS/triplet/003/frame/01676.png",
-                        "positive_index": 1676
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/003/1910001915/4.png",
-                        "positive": "../../dataset/RakutenDS/triplet/003/frame/05000.png",
-                        "positive_index": 5000
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/003/1910001915/5.png",
-                        "positive": "../../dataset/RakutenDS/triplet/003/frame/04280.png",
-                        "positive_index": 4280
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/003/1910001915/6.png",
-                        "positive": "../../dataset/RakutenDS/triplet/003/frame/05338.png",
-                        "positive_index": 5338
-                    }
-                ]
-            }
         ]
     ]
 }

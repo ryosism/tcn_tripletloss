@@ -123,45 +123,6 @@
         ],
         [
             {
-                "folder": "1380005325"
-            },
-            {
-                "pic": [
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/007/1380005325/2.png",
-                        "positive": "../../dataset/RakutenDS/triplet/007/frame/00750.png",
-                        "positive_index": 750
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/007/1380005325/3.png",
-                        "positive": "../../dataset/RakutenDS/triplet/007/frame/01320.png",
-                        "positive_index": 1320
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/007/1380005325/4.png",
-                        "positive": "../../dataset/RakutenDS/triplet/007/frame/01440.png",
-                        "positive_index": 1440
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/007/1380005325/6.png",
-                        "positive": "../../dataset/RakutenDS/triplet/007/frame/01200.png",
-                        "positive_index": 1200
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/007/1380005325/7.png",
-                        "positive": "../../dataset/RakutenDS/triplet/007/frame/02010.png",
-                        "positive_index": 2010
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/007/1380005325/10.png",
-                        "positive": "../../dataset/RakutenDS/triplet/007/frame/10350.png",
-                        "positive_index": 10350
-                    }
-                ]
-            }
-        ],
-        [
-            {
                 "folder": "1430005576"
             },
             {

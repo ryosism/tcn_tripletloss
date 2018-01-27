@@ -261,50 +261,6 @@
         ],
         [
             {
-                "folder": "1320002009"
-            },
-            {
-                "pic": [
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/1.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/00151.png",
-                        "positive_index": 151
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/4.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/01781.png",
-                        "positive_index": 1781
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/5.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/01972.png",
-                        "positive_index": 1972
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/6.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/02588.png",
-                        "positive_index": 2588
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/8.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/02843.png",
-                        "positive_index": 2843
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/9.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/03746.png",
-                        "positive_index": 3746
-                    },
-                    {
-                        "anchor": "../../dataset/RakutenDS/triplet/002/1320002009/11.png",
-                        "positive": "../../dataset/RakutenDS/triplet/002/frame/04938.png",
-                        "positive_index": 4938
-                    }
-                ]
-            }
-        ],
-        [
-            {
                 "folder": "1330006106"
             },
             {

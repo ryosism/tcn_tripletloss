@@ -20,6 +20,12 @@ import time
 import pandas as pd
 import logging
 
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
+
+import networkx as nx
+
 # argv[]
 # argv[1] : input directory for test_anchor
 # argv[2] : input directory for test_positive
@@ -59,6 +65,26 @@ def top500(rank_dist, rank_index, new, index):
 
     return rank_dist, rank_index
 
+def confidence_graph(confidences, order_num):
+    fig = plt.figure(figsize=(200, 10))
+    plt.xlabel("frame")
+    plt.ylabel("confidence")
+    plt.rcParams["font.size"] = 16
+    # plt.legend(["confidence"], loc= loc="upper right")
+
+    frames = range(len(confidences))
+    num = 100 #移動平均の個数
+    b = np.ones(int(num))/num
+    ido = np.convolve(confidences, b, mode='same')#移動平均
+
+    plt.xlim(0, len(confidences))
+    plt.ylim(0.5, 1.0)
+
+    plt.plot(frames, confidences, "r",linewidth=1, linestyle="-", label="conf")
+    plt.plot(frames, ido, "b",linewidth=10, linestyle="-", label="moving average (n = {})".format(int(num)))
+    plt.legend(fontsize=18)
+
+    plt.savefig("confidence_order{}.pdf".format(order_num),bbox_inches="tight")
 
 
 def create_base_network(model_name):
@@ -148,6 +174,54 @@ def random_batch_generator(train_list, num_batches = 32):
                 anc = []
                 neg = []
 
+def make_tensor(order_num):
+
+
+
+def print_path(prev, cost):
+    for i in range(len(prev)):
+        print("%d, prev = %d, cost = %d" %  (i, prev[i], cost[i]))
+
+def get_path(start, goal, prev):
+    path = []
+    now = goal
+    path.append(now)
+    while True:
+        path.append(prev[now])
+        if prev[now] == start: break
+        now = prev[now]
+    path.reverse()
+    return path
+
+def search(glaph, start, goal):
+    MAX_VAL = 0x10000000
+    g_size = len(glaph)
+    visited = [False] * g_size
+    cost = [MAX_VAL] * g_size
+    prev = [None] * g_size
+    cost[start] = 0
+    prev[start] = start
+    now = start
+    while True:
+        min = MAX_VAL
+        next = -1
+        visited[now] = True
+        for i in range(g_size):
+            if visited[i]: continue
+            if glaph[now][i]:
+                tmp_cost = glaph[now][i] + cost[now]
+                if cost[i] > tmp_cost:
+                    cost[i] = tmp_cost
+                    prev[i] = now
+            if min > cost[i]:
+                min = cost[i]
+                next = i
+        if next == -1: break
+        now = next
+    print_path(prev, cost)
+    return [get_path(start, goal, prev), cost[goal]]
+
+
 def test():
     # ログの出力名を設定（1）
     logger = logging.getLogger('LoggingTest')
@@ -188,6 +262,7 @@ def test():
     dlist_v2.sort()
 
     result = []
+    key_index = []
 
     # 全部のepochいじるときはfor文を有効に
     # for epoch in range(int(sys.argv[3])):
@@ -220,16 +295,17 @@ def test():
             q_feats.append(q_feat)
 
         min_index = 0
-        min_indexs = []
         for i, ref in enumerate(flist_v1):
+
+            # 手順画像ごとに実行
 
             # initialize-------------------
             #top500
-            rank_dist = []
-            rank_index = []
-            for i in range(500):
-                rank_dist.append(500)
-                rank_index.append(0)
+            # rank_dist = []
+            # rank_index = []
+            # for i in range(500):
+            #     rank_dist.append(100)
+            #     rank_index.append(0)
 
             # top5
             # rank_dist = [100,100,100,100,100]
@@ -243,33 +319,40 @@ def test():
             min_dist = 1000
             nn = 0
 
-            for j in range(min_index+120, len(q_feats)):
+            confidences = []
+            for j in range(min_index, len(q_feats)):
                 dist = np.linalg.norm( r_feat[0] - q_feats[j][0])
 
+                # 手順画像に対してフレーム１枚ごとに実行
+
                 # top1
-                # if dist < min_dist:
-                #     min_dist = dist
-                #     nn = j
+                if dist < min_dist:
+                    min_dist = dist
+                    nn = j
+
+                confidences.append(1.0 - dist)
 
                 # top5
                 # rank_dist, rank_index = top5(rank_dist, rank_index, dist, j)
 
                 # top500
-                rank_dist, rank_index = top500(rank_dist, rank_index, dist, j)
+                # rank_dist, rank_index = top500(rank_dist, rank_index, dist, j)
 
+            confidence_graph(confidences, i)
 
             # top1
-            # logger.log(30, '{} {} {}'.format(i, nn, min_dist))
+            logger.log(30, '{} {} {}'.format(i, nn, min_dist))
+            key_index.append(nn)
+            logger.log(30, 'key_index = {}'.format(key_index))
+
 
             # top5
             # logger.log(30, '{} rank_dist = {} rank_index = {}'.format(i, rank_dist, rank_index))
 
             # top500
-            logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
-            min_index = min(rank_index)
-            min_indexs.append(min_index)
-            logger.log(30, 'min_index = {}'.format(min_index))
-            logger.log(30, 'min_indexs = {}'.format(min_indexs))
+            # logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
+            # min_index = min(rank_index)
+            # logger.log(30, 'min_index = {}'.format(min_index))
 
             if i == nn:
                 correct += 1

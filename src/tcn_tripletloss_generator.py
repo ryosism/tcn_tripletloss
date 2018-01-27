@@ -12,7 +12,7 @@ import keras.backend.tensorflow_backend as KTF
 
 import numpy as np
 from glob import glob
-from os import path
+import os
 import sys
 
 import json
@@ -27,11 +27,12 @@ import time
 def identity_loss(y_true, y_pred):
     return K.mean(y_pred - 0 * y_true)
 
-def triplet_loss(vec, alpha = 0.2):
+def triplet_loss(vec, alpha = 0.4):
+    beta = 1.0
     anchor, positive, negative = vec
     d_p = K.sum(K.square(anchor - positive), axis = -1)
     d_n = K.sum(K.square(anchor - negative), axis = -1)
-    loss = K.mean(K.maximum(0.0, d_p -d_n + alpha ))
+    loss = K.mean(K.maximum(0.0, d_p -d_n + alpha )) + beta * (K.mean(K.minimum(0.0, d_p - 0.1)))
     return loss
 
 def create_base_network(model_name):
@@ -43,6 +44,8 @@ def create_base_network(model_name):
         inception_model = InceptionV3(weights='imagenet', include_top=False)
         x = inception_model.get_layer('mixed5').output
         x = GlobalAveragePooling2D()(x)
+
+
         x = Dense(1024, activation='relu')(x)
         x = Dense(128)(x)
         model = Model(input = inception_model.input, output = x)
@@ -94,7 +97,7 @@ def batch_generator(pairs, num_batches = 32):
                 neg = []
 
 
-def random_batch_generator(train_list, num_batches = 32):
+def random_batch_generator(all_frame, train_list, num_batches = 32):
     while True:
         anc = []
         pos = []
@@ -104,11 +107,26 @@ def random_batch_generator(train_list, num_batches = 32):
             frame = random.randint(0, len(train_list[i])-1)
             anchor = train_list[i][frame][0]
             positive = train_list[i][frame][1]
+            # 上のpositiveはファイルパスのはず
+            # 何番の料理を見てるか番号取得
+            path = positive.split('/')
+            # path[-2]が番号かな、[-1]がframe、[0]がファイル名
+            # 配列番号を取得
+            folder_num = int(path[-3])
+            frames = all_frame[folder_num-1]
+            # これでframesはpositiveと同じ動画のフレーム画像リスト
+
+            # 拡張子とファイル名を分けて、positiveが見てるファイルのフレーム番号を取得
+            name, ext = os.path.splitext(path[-1])
+            po_frameNum = int(name)
+
             while True:
-               n = random.randint(0, len(train_list[i])-1)
-               if abs(n - frame) < 30:
-                   break
-            negative = train_list[i][n][1]
+                # nはネガティブ候補のフレーム番号
+                n = random.randint(0, len(frames)-1)
+                # print("n = {}, po_frameNum = {}".format(n, po_frameNum))
+                if abs(n - po_frameNum) > 61:
+                    break
+            negative = frames[n]
             pos.append(get_img(positive))
             anc.append(get_img(anchor))
             neg.append(get_img(negative))
@@ -148,8 +166,8 @@ def train():
     train_list =[]
     for dirs in zip(dlist_v1, dlist_v2):
         # ディレクトリの中身の画像ファイルのパスを取得
-        flist_v1 = glob(path.join(dirs[0], '*/*.png'))
-        flist_v2 = glob(path.join(dirs[1], '*/*.png'))
+        flist_v1 = glob(os.path.join(dirs[0], '*/*.png'))
+        flist_v2 = glob(os.path.join(dirs[1], '*/*.png'))
         # ファイル名ソート
         flist_v1.sort()
         flist_v2.sort()
@@ -175,6 +193,16 @@ def train():
     logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = len(train_list)/batchsize, epochs = train_epoch, callbacks=[checkpoint])
 
 def train_aug():
+
+    # 全フレーム取得、リストで
+    all_frame = []
+    # 柔軟性ないコードだけどまぁいいや
+    for i in range(10):
+        path = '/home/dataset/RakutenDS/triplet/{}/frame/'.format(str(i+1).zfill(3))
+        frames = glob(os.path.join(path, '*'))
+        all_frame.append(frames)
+
+
     model_name = 'inception'
     base_model = create_base_network(model_name)
     base_model.summary()
@@ -193,7 +221,7 @@ def train_aug():
     model_arch = model.to_json()
     fout = open("model.json", 'w').write(model_arch)
 
-    jlist_v1 = glob(path.join(sys.argv[1], '*'))
+    jlist_v1 = glob(os.path.join(sys.argv[1], '*'))
     jlist_v1.sort()
 
     train_list =[]
@@ -212,13 +240,12 @@ def train_aug():
             for pic in (JSON['data'][idnum][1]['pic']):
                 # オーギュメンテーション
                 # -30フレームから30フレーム後まで
-                for t in range(-30,30,1):
+                for t in range(-30,30,6):
                     # dictにファイルパス、fileにファイル名が入る
-                    po_path, file = path.split(pic['positive'])
-                    po_index = pic['positive_index']
+                    po_path, file = os.path.split(pic['positive'])
                     aug_po = po_path + '/' + str(pic['positive_index']+t).zfill(5) + '.png'
                     print(pic['anchor'], aug_po)
-                    if path.exists(aug_po):
+                    if os.path.exists(aug_po):
                         name_list.append((pic['anchor'], aug_po))
 
                         train_list.append(name_list)
@@ -235,10 +262,60 @@ def train_aug():
     now = time.ctime()
     parsed = time.strptime(now)
     csvlogger = keras.callbacks.CSVLogger('{}.csv'.format(time.strftime("%Y%m%d_%H:%M:%S", parsed)), separator=',', append=False)
-    logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint, tensorboard, csvlogger])
+    logs = model.fit_generator(random_batch_generator(all_frame, train_list, batchsize), steps_per_epoch = total_frames/batchsize, epochs = train_epoch, callbacks=[checkpoint, tensorboard, csvlogger])
 
+#
+# def test():
+#     query = 0
+#     correct = 0
+#
+#     model_name = 'inception'
+#     base_model = create_base_network(model_name)
+#     if K.image_data_format() == 'channels_first':
+#         input_shape = (3, 224, 224)
+#     else:
+#         input_shape = (224, 224, 3)
+#     model = build_predict(base_model, input_shape=input_shape)
+#     model.summary()
+#     model.load_weights('./../model/weights.198.hd5')
+#
+#     dlist_v1 = glob(os.path.join(sys.argv[4], '*'))
+#     dlist_v2 = glob(os.path.join(sys.argv[5], '*'))
+#
+#     dlist_v1.sort()
+#     dlist_v2.sort()
+#
+#     for dirs in zip(dlist_v1, dlist_v2):
+#         flist_v1 = glob(os.path.join(dirs[0], '*.png'))
+#         flist_v2 = glob(os.path.join(dirs[1], '*.png'))
+#         flist_v1.sort()
+#         flist_v2.sort()
+#         print (len(flist_v1), len(flist_v2))
+#         query += len(flist_v1)
+#         for i, ref in enumerate(flist_v1):
+#             ref_img = get_img(ref)
+#             ref_img = np.expand_dims(ref_img, axis=0)
+#             r_feat = model.predict(ref_img,batch_size=1)
+#             #print("r_feat = ",np.asarray(r_feat).shape)
+#             #print (r_feat)
+#             min_dist = 1000
+#             nn = 0
+#             for j, q in enumerate(flist_v2):
+#                 q_img = get_img(q)
+#                 q_img = np.expand_dims(q_img, axis=0)
+#                 q_feat = model.predict(q_img,batch_size=1)
+#                 dist = np.linalg.norm( r_feat[0] - q_feat[0])
+#                 if dist < min_dist:
+#                     min_dist = dist
+#                     nn = j
+#             print(i, nn, min_dist)
+#             if i == nn:
+#                 correct += 1
+#
+#     print("{} files, {} corrects, test_loss = {}".format(query, correct, 1-float(correct / query)))
 
 if __name__ == '__main__':
     train_aug()
+    # test()
 
 #model.fit_generator(...)
