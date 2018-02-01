@@ -76,7 +76,9 @@ def build_predict(base_model, input_shape=(224, 224,3)):
 
 
 def get_img(name):
-    img = image.load_img(name, target_size=(224, 224))
+    raw_img = image.load_img(name, target_size=(224, 224))
+    augmentor = image.ImageDataGenerator(zoom_range=0.2, horizontal_flip=True)
+    img = augmentor(raw_img)
     x = image.img_to_array(img)
     return x
 
