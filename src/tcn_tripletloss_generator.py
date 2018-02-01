@@ -27,12 +27,12 @@ import time
 def identity_loss(y_true, y_pred):
     return K.mean(y_pred - 0 * y_true)
 
-def triplet_loss(vec, alpha = 0.4):
+def triplet_loss(vec, alpha = 0.2):
     beta = 1.0
     anchor, positive, negative = vec
     d_p = K.sum(K.square(anchor - positive), axis = -1)
     d_n = K.sum(K.square(anchor - negative), axis = -1)
-    loss = K.mean(K.maximum(0.0, d_p -d_n + alpha )) + beta * (K.mean(K.minimum(0.0, d_p - 0.1)))
+    loss = K.mean(K.maximum(0.0, d_p -d_n + alpha )) # + beta * (K.mean(K.minimum(0.0, d_p - 0.1)))
     return loss
 
 def create_base_network(model_name):
@@ -42,7 +42,7 @@ def create_base_network(model_name):
         model = Model(input = vgg_model.input, output = vgg_model.output)
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
-        x = inception_model.get_layer('mixed5').output
+        x = inception_model.get_layer('mixed2').output
         x = GlobalAveragePooling2D()(x)
 
 
@@ -137,61 +137,6 @@ def random_batch_generator(all_frame, train_list, num_batches = 32):
                 anc = []
                 neg = []
 
-
-def train():
-    model_name = 'inception'
-    base_model = create_base_network(model_name)
-    base_model.summary()
-    if K.image_data_format() == 'channels_first':
-        input_shape = (3, 224, 224)
-    else:
-        input_shape = (224, 224, 3)
-    model = build(base_model, input_shape=input_shape)
-    model.summary()
-    model.compile(optimizer='rmsprop', loss=identity_loss)
-    model_arch = json_string = model.to_json()
-    fout = open("model.json", 'w')
-    fout.write(model_arch)
-    fout.close()
-
-# ネガ、ポジそれぞれのフォルダをまとめたフォルダのパス
-# v1にアンカー、v2にポジティブを置けばいいのかな
-    dlist_v1 = glob(sys.argv[1])
-    dlist_v2 = glob(sys.argv[2])
-
-# ディレクトリ名でソート
-    dlist_v1.sort()
-    dlist_v2.sort()
-
-    train_list =[]
-    for dirs in zip(dlist_v1, dlist_v2):
-        # ディレクトリの中身の画像ファイルのパスを取得
-        flist_v1 = glob(os.path.join(dirs[0], '*/*.png'))
-        flist_v2 = glob(os.path.join(dirs[1], '*/*.png'))
-        # ファイル名ソート
-        flist_v1.sort()
-        flist_v2.sort()
-
-        # アンカーに対してのネガティブペアを作るため、見当違いのインデックス番号のファイルパスをネガティブ画像としてリスト作成
-        for p in range( min(len(flist_v1), len(flist_v2))):
-            anchor = flist_v1[p]
-            positive = flist_v2[p]
-            while True:
-               n = np.random.randint(0, len(flist_v1))
-               if abs(n - p) > 30:
-                   break
-            negative = flist_v1[n]
-            pairs = {'positive':positive, 'negative':negative, 'anchor':anchor}
-            train_list.append(pairs)
-
-
-    batchsize = 32
-    train_epoch = 100
-    out_model_path = './../model/weights.{epoch:02d}.hd5'
-    np.random.shuffle(train_list)
-    checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
-    logs = model.fit_generator(random_batch_generator(train_list, batchsize), steps_per_epoch = len(train_list)/batchsize, epochs = train_epoch, callbacks=[checkpoint])
-
 def train_aug():
 
     # 全フレーム取得、リストで
@@ -255,7 +200,7 @@ def train_aug():
     print("len(train_list), total_recipes = ", len(train_list), total_recipes)
     batchsize = 64
     train_epoch = int(sys.argv[2])
-    out_model_path = './../model/weights.{epoch:02d}.hd5'
+    out_model_path = './../model_10/model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
     tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
 
