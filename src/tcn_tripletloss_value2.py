@@ -378,6 +378,7 @@ def test():
             ref_img = get_img(ref)
             ref_img = np.expand_dims(ref_img, axis=0)
             r_feat = model.predict(ref_img,batch_size=1)
+            print(r_feat)
 
             min_dist = 1000
             nn = 0
