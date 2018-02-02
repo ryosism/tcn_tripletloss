@@ -18,6 +18,9 @@ import sys
 import json
 import time
 
+import cv2
+from deeplearning_tool.extend_dataset import addSaltPepperNoise, equalizeHistRGB
+
 # argv[]
 # argv[1] : json directoried
 # argv[2] : epoch_num
@@ -42,7 +45,7 @@ def create_base_network(model_name):
         model = Model(input = vgg_model.input, output = vgg_model.output)
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
-        x = inception_model.get_layer('mixed2').output
+        x = inception_model.get_layer('mixed5').output
         x = GlobalAveragePooling2D()(x)
 
 
@@ -74,16 +77,19 @@ def build_predict(base_model, input_shape=(224, 224,3)):
     out = base_model(input_img)
     return Model(input=input_img, output=out)
 
-
 def get_img(name):
-    raw_img = image.load_img(name, target_size=(224, 224))
-    augmentor = image.ImageDataGenerator(zoom_range=0.2, horizontal_flip=True)
-    img = augmentor(raw_img)
+    img = image.load_img(name, target_size=(224, 224))
     x = image.img_to_array(img)
+    if random.randint(0, 1):
+        x = cv2.flip(x, 1)
+    if random.randint(0, 1):
+        x = addSaltPepperNoise(x)
+
     return x
 
 def batch_generator(pairs, num_batches = 32):
     while True:
+
         anc =[]
         pos = []
         neg = []
@@ -145,7 +151,7 @@ def train_aug():
     all_frame = []
     # 柔軟性ないコードだけどまぁいいや
     for i in range(10):
-        path = '/home/dataset/RakutenDS/triplet/{}/frame/'.format(str(i+1).zfill(3))
+        path = '../../dataset/RakutenDS/triplet/{}/frame/'.format(str(i+1).zfill(3))
         frames = glob(os.path.join(path, '*'))
         all_frame.append(frames)
 
@@ -200,11 +206,11 @@ def train_aug():
 
             total_recipes += 1
     print("len(train_list), total_recipes = ", len(train_list), total_recipes)
-    batchsize = 64
+    batchsize = 50
     train_epoch = int(sys.argv[2])
-    out_model_path = './../model_10/model/weights.{epoch:02d}.hd5'
+    out_model_path = './../model_11/model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
-    tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
+    tensorboard = keras.callbacks.TensorBoard(log_dir="./model_11/log/", write_graph=True)
 
     now = time.ctime()
     parsed = time.strptime(now)
