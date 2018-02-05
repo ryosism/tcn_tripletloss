@@ -167,7 +167,7 @@ def test():
 
         # logger.log(30, 'epoch {}'.format(epoch))
 
-    model.load_weights('../model_08/model/weights.{}.hd5'.format(sys.argv[3]))
+    model.load_weights('../model/weights.{}.hd5'.format(sys.argv[3]))
 
     query = 0
     correct = 0
