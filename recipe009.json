@@ -1,0 +1,213 @@
+{
+    "name": "torikara",
+    "data": [
+        [
+            {
+                "folder": "1110004833"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1110004833/1.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/01230.png",
+                        "positive_index": 1230
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1110004833/2.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02130.png",
+                        "positive_index": 2130
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1110004833/3.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02940.png",
+                        "positive_index": 2940
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1110004833/5.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/03030.png",
+                        "positive_index": 3030
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1110004833/6.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/07620.png",
+                        "positive_index": 7620
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1110004833/7.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/11220.png",
+                        "positive_index": 11220
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "folder": "1280003585"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1280003585/2.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/01320.png",
+                        "positive_index": 1320
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1280003585/4.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02310.png",
+                        "positive_index": 2310
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1280003585/5.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02940.png",
+                        "positive_index": 2940
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1280003585/8.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/11220.png",
+                        "positive_index": 11220
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "folder": "1290017279"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1290017279/1.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/01290.png",
+                        "positive_index": 1290
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1290017279/2.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02520.png",
+                        "positive_index": 2520
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1290017279/3.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/03030.png",
+                        "positive_index": 3030
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1290017279/4.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/06930.png",
+                        "positive_index": 6930
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1290017279/5.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/10800.png",
+                        "positive_index": 10800
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "folder": "1380010297"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1380010297/1.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/01260.png",
+                        "positive_index": 1260
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1380010297/3.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/04740.png",
+                        "positive_index": 4740
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1380010297/4.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/10440.png",
+                        "positive_index": 10440
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "folder": "1580029072"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1580029072/1.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/01860.png",
+                        "positive_index": 1860
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1580029072/2.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/04350.png",
+                        "positive_index": 4350
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1580029072/3.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/06930.png",
+                        "positive_index": 6930
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "folder": "1790008379"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1790008379/1.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/01650.png",
+                        "positive_index": 1650
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1790008379/2.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02520.png",
+                        "positive_index": 2520
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1790008379/4.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/05970.png",
+                        "positive_index": 5970
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1790008379/5.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/08880.png",
+                        "positive_index": 8880
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "folder": "1980017027"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1980017027/1.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/02940.png",
+                        "positive_index": 2940
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1980017027/2.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/03030.png",
+                        "positive_index": 3030
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1980017027/3.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/06720.png",
+                        "positive_index": 6720
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/009/1980017027/4.png",
+                        "positive": "../../dataset/RakutenDS/triplet/009/frame/11190.png",
+                        "positive_index": 11190
+                    }
+                ]
+            }
+        ]
+    ]
+}
