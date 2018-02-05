@@ -2240,3 +2240,39 @@ Traceback (most recent call last):
   File "/opt/conda/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 696, in __del__
   File "/opt/conda/lib/python3.5/site-packages/tensorflow/python/framework/c_api_util.py", line 30, in __init__
 TypeError: 'NoneType' object is not callable
+  File "tcn_tripletloss_test.py", line 210
+    >>>>>>> 772c560a7e70b1536f3c2552eda6781be2fbec1e
+     ^
+SyntaxError: invalid syntax
+2018-02-02 18:04:16.357580: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-02 18:04:17.390363: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:03:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-02 18:04:17.390489: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:03:00.0, compute capability: 6.1)
+Using TensorFlow backend.
+tcn_tripletloss_test.py:50: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor("in..., outputs=Tensor("de...)`
+  model = Model(input = inception_model.input, output = x)
+tcn_tripletloss_test.py:74: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor("in..., outputs=Tensor("mo...)`
+  return Model(input=input_img, output=out)
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_2 (InputLayer)         (None, 224, 224, 3)       0         
+_________________________________________________________________
+model_1 (Model)              (None, 128)               9893920   
+=================================================================
+Total params: 9,893,920
+Trainable params: 9,875,104
+Non-trainable params: 18,816
+_________________________________________________________________
+Traceback (most recent call last):
+  File "tcn_tripletloss_test.py", line 215, in <module>
+    test()
+  File "tcn_tripletloss_test.py", line 168, in test
+    logger.log(30, 'epoch {}'.format(epoch))
+NameError: name 'epoch' is not defined
+Exception ignored in: <bound method BaseSession.__del__ of <tensorflow.python.client.session.Session object at 0x7f87de848a20>>
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 696, in __del__
+TypeError: 'NoneType' object is not callable

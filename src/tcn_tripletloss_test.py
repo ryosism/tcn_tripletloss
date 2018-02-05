@@ -41,7 +41,7 @@ def create_base_network(model_name):
         model = Model(input = vgg_model.input, output = vgg_model.output)
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
-        x = inception_model.get_layer('mixed7').output
+        x = inception_model.get_layer('mixed5').output
         x = GlobalAveragePooling2D()(x)
 
 
@@ -165,9 +165,9 @@ def test():
         # epoch = str(epoch+1).zfill(2)
         # print('epoch ',epoch)
 
-    logger.log(30, 'epoch {}'.format(epoch))
+        # logger.log(30, 'epoch {}'.format(epoch))
 
-    model.load_weights('./../model_01/weights.{}.hd5'.format(epoch))
+    model.load_weights('../model_08/model/weights.{}.hd5'.format(sys.argv[3]))
 
     query = 0
     correct = 0
@@ -207,8 +207,6 @@ def test():
     else:
         logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
         result.append(float(correct / query))
->>>>>>> 772c560a7e70b1536f3c2552eda6781be2fbec1e
-
 
     logger.log(30, result)
 

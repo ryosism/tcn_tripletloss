@@ -18,6 +18,8 @@ import sys
 import json
 import time
 
+import cv2
+
 # argv[]
 # argv[1] : json directoried
 # argv[2] : epoch_num
@@ -42,7 +44,7 @@ def create_base_network(model_name):
         model = Model(input = vgg_model.input, output = vgg_model.output)
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
-        x = inception_model.get_layer('mixed2').output
+        x = inception_model.get_layer('mixed5').output
         x = GlobalAveragePooling2D()(x)
 
 
@@ -76,10 +78,10 @@ def build_predict(base_model, input_shape=(224, 224,3)):
 
 
 def get_img(name):
-    raw_img = image.load_img(name, target_size=(224, 224))
-    augmentor = image.ImageDataGenerator(zoom_range=0.2, horizontal_flip=True)
-    img = augmentor(raw_img)
+    img = image.load_img(name, target_size=(224, 224))
     x = image.img_to_array(img)
+    if random.randint(0, 1):
+        x = cv2.flip(x, 1)
     return x
 
 def batch_generator(pairs, num_batches = 32):
@@ -126,7 +128,7 @@ def random_batch_generator(all_frame, train_list, num_batches = 32):
                 # nはネガティブ候補のフレーム番号
                 n = random.randint(0, len(frames)-1)
                 # print("n = {}, po_frameNum = {}".format(n, po_frameNum))
-                if abs(n - po_frameNum) > 61:
+                if abs(n - po_frameNum) > 301:
                     break
             negative = frames[n]
             pos.append(get_img(positive))
@@ -145,7 +147,7 @@ def train_aug():
     all_frame = []
     # 柔軟性ないコードだけどまぁいいや
     for i in range(10):
-        path = '/home/dataset/RakutenDS/triplet/{}/frame/'.format(str(i+1).zfill(3))
+        path = '../../dataset/RakutenDS/triplet/{}/frame/'.format(str(i+1).zfill(3))
         frames = glob(os.path.join(path, '*'))
         all_frame.append(frames)
 
@@ -187,7 +189,7 @@ def train_aug():
             for pic in (JSON['data'][idnum][1]['pic']):
                 # オーギュメンテーション
                 # -30フレームから30フレーム後まで
-                for t in range(-30,30,6):
+                for t in range(-300,300,60):
                     # dictにファイルパス、fileにファイル名が入る
                     po_path, file = os.path.split(pic['positive'])
                     aug_po = po_path + '/' + str(pic['positive_index']+t).zfill(5) + '.png'
@@ -200,9 +202,9 @@ def train_aug():
 
             total_recipes += 1
     print("len(train_list), total_recipes = ", len(train_list), total_recipes)
-    batchsize = 64
+    batchsize = 50
     train_epoch = int(sys.argv[2])
-    out_model_path = './../model_10/model/weights.{epoch:02d}.hd5'
+    out_model_path = './../model_13/model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
     tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
 
