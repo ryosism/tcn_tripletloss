@@ -204,7 +204,7 @@ def train_aug():
     print("len(train_list), total_recipes = ", len(train_list), total_recipes)
     batchsize = 50
     train_epoch = int(sys.argv[2])
-    out_model_path = './../model_13/model/weights.{epoch:02d}.hd5'
+    out_model_path = './../model_14/model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
     tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
 
