@@ -181,21 +181,21 @@ def make_tensor(all_confidences, order_num, alpha):
     np.set_printoptions(precision=3, suppress=True) #指数表示の禁止
 
     for i in range(0,order_num):
-        table[i][i] = 0.1
+        table[i][i] = 0
+        
+    for i in range(0,order_num-1):
+        table[i][i+1] = 0.02
 
     for i in range(0,order_num-1):
-        table[i][i+1] = 0.2
-
-    for i in range(0,order_num-1):
-        table[i+1][i] = 0.4
+        table[i+1][i] = 1.1
 
     for c in range(2, order_num):
         for b in range(0, order_num-c):
-            table[b][b+c] = 0.4*(c-1)
+            table[b][b+c] = 0.05*(c-1)
 
     for c in range(1, order_num):
         for b in range(0, order_num-c):
-            table[b+c][b] = 0.4*c
+            table[b+c][b] = 1.2*c
 
     # ここまでで重みテーブルは完成
     print(table)
@@ -331,7 +331,7 @@ def test():
     # logger.log(30, 'epoch {}'.format(epoch))
 
     # model.load_weights('./../model/weights.{}.hd5'.format(epoch))
-    model.load_weights('./../model/weights.{}.hd5'.format(sys.argv[3]))
+    model.load_weights('../model_15/model/weights.{}.hd5'.format(sys.argv[3]))
 
     query = 0
     correct = 0
@@ -429,14 +429,15 @@ def test():
                 correct += 1
 
         # path, cost = search(make_tensor(all_confidences, len(flist_v1), 1), 0, len(flist_v1)*len(flist_v2))
-        path = nx.dijkstra_path(make_tensor(all_distances, len(flist_v1), 1.5), 0, len(flist_v1)*len(flist_v2))
+        path = nx.dijkstra_path(make_tensor(all_distances, len(flist_v1), 0.6), 0, len(flist_v1)*len(flist_v2))
 
         order_path = []
         now = -1
-        for pa in path:
+        for i, pa in enumerate(path):
             pa = pa % len(flist_v1)
             if now != pa:
                 now = pa
+                print(i)
                 order_path.append(pa)
 
         print("order_path = ",order_path)

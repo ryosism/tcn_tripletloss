@@ -1,0 +1,44 @@
+5 2503
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f6400905510>
+0 2017 0.0059656924568116665
+key_index = [2017]
+<function shape at 0x7f6400905510>
+1 825 0.009905046783387661
+key_index = [2017, 825]
+<function shape at 0x7f6400905510>
+2 1137 0.009472998790442944
+key_index = [2017, 825, 1137]
+<function shape at 0x7f6400905510>
+3 2207 0.01282384805381298
+key_index = [2017, 825, 1137, 2207]
+<function shape at 0x7f6400905510>
+4 61 0.007360424846410751
+key_index = [2017, 825, 1137, 2207, 61]
+5 files, 0 corrects, accuracy = zero divided
+[0]

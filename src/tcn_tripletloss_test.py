@@ -161,52 +161,52 @@ def test():
 
     result = []
     # ぜんepochに対応したいときはここをコメントインして下をインデント
-    # for epoch in range(int(sys.argv[3])):
-        # epoch = str(epoch+1).zfill(2)
-        # print('epoch ',epoch)
+    for epoch in range(int(sys.argv[3])):
+        epoch = str(epoch+1).zfill(2)
+        print('epoch ',epoch)
 
-        # logger.log(30, 'epoch {}'.format(epoch))
+        logger.log(30, 'epoch {}'.format(epoch))
 
-    model.load_weights('../model/weights.{}.hd5'.format(sys.argv[3]))
+        model.load_weights('../model_15/model/weights.{}.hd5'.format(str(epoch)))
 
-    query = 0
-    correct = 0
+        query = 0
+        correct = 0
 
-    for dirs in zip(dlist_v1, dlist_v2):
-        flist_v1 = glob(path.join(dirs[0], '*.png'))
-        flist_v2 = glob(path.join(dirs[1], '*.png'))
-        flist_v1.sort()
-        flist_v2.sort()
-        # print (len(flist_v1), len(flist_v2))
-        logger.log(30, '{} {}'.format(len(flist_v1), len(flist_v2)))
-        query += len(flist_v1)
+        for dirs in zip(dlist_v1, dlist_v2):
+            flist_v1 = glob(path.join(dirs[0], '*.png'))
+            flist_v2 = glob(path.join(dirs[1], '*.png'))
+            flist_v1.sort()
+            flist_v2.sort()
+            # print (len(flist_v1), len(flist_v2))
+            logger.log(30, '{} {}'.format(len(flist_v1), len(flist_v2)))
+            query += len(flist_v1)
 
-        for i, ref in enumerate(flist_v1):
-            ref_img = get_img(ref)
-            ref_img = np.expand_dims(ref_img, axis=0)
-            r_feat = model.predict(ref_img,batch_size=1)
+            for i, ref in enumerate(flist_v1):
+                ref_img = get_img(ref)
+                ref_img = np.expand_dims(ref_img, axis=0)
+                r_feat = model.predict(ref_img,batch_size=1)
 
-            min_dist = 1000
-            nn = 0
-            for j, q in enumerate(flist_v2):
-                q_img = get_img(q)
-                q_img = np.expand_dims(q_img, axis=0)
-                q_feat = model.predict(q_img,batch_size=1)
-                dist = np.linalg.norm( r_feat[0] - q_feat[0])
-                if dist < min_dist:
-                    min_dist = dist
-                    nn = j
-            # print(i, nn, min_dist)
-            logger.log(30, '{} {} {}'.format(i, nn, min_dist))
-            if i == nn:
-                correct += 1
+                min_dist = 1000
+                nn = 0
+                for j, q in enumerate(flist_v2):
+                    q_img = get_img(q)
+                    q_img = np.expand_dims(q_img, axis=0)
+                    q_feat = model.predict(q_img,batch_size=1)
+                    dist = np.linalg.norm( r_feat[0] - q_feat[0])
+                    if dist < min_dist:
+                        min_dist = dist
+                        nn = j
+                # print(i, nn, min_dist)
+                logger.log(30, '{} {} {}'.format(i, nn, min_dist))
+                if i == nn:
+                    correct += 1
 
-    if correct == 0:
-        logger.log(30, "{} files, {} corrects, accuracy = zero divided".format(query, correct))
-        result.append(0)
-    else:
-        logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
-        result.append(float(correct / query))
+        if correct == 0:
+            logger.log(30, "{} files, {} corrects, accuracy = zero divided".format(query, correct))
+            result.append(0)
+        else:
+            logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
+            result.append(float(correct / query))
 
     logger.log(30, result)
 

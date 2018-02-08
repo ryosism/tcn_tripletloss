@@ -1,0 +1,68 @@
+13 2503
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f364cbf8510>
+0 617 0.016439693048596382
+key_index = [617]
+<function shape at 0x7f364cbf8510>
+1 1346 0.005917304195463657
+key_index = [617, 1346]
+<function shape at 0x7f364cbf8510>
+2 92 0.01001790165901184
+key_index = [617, 1346, 92]
+<function shape at 0x7f364cbf8510>
+3 663 0.009542884305119514
+key_index = [617, 1346, 92, 663]
+<function shape at 0x7f364cbf8510>
+4 92 0.010542244650423527
+key_index = [617, 1346, 92, 663, 92]
+<function shape at 0x7f364cbf8510>
+5 1788 0.021360931918025017
+key_index = [617, 1346, 92, 663, 92, 1788]
+<function shape at 0x7f364cbf8510>
+6 150 0.009805716574192047
+key_index = [617, 1346, 92, 663, 92, 1788, 150]
+<function shape at 0x7f364cbf8510>
+7 3 0.012474491260945797
+key_index = [617, 1346, 92, 663, 92, 1788, 150, 3]
+<function shape at 0x7f364cbf8510>
+8 488 0.007778252940624952
+key_index = [617, 1346, 92, 663, 92, 1788, 150, 3, 488]
+<function shape at 0x7f364cbf8510>
+9 847 0.010169477201998234
+key_index = [617, 1346, 92, 663, 92, 1788, 150, 3, 488, 847]
+<function shape at 0x7f364cbf8510>
+10 1138 0.01236746832728386
+key_index = [617, 1346, 92, 663, 92, 1788, 150, 3, 488, 847, 1138]
+<function shape at 0x7f364cbf8510>
+11 2017 0.007348169106990099
+key_index = [617, 1346, 92, 663, 92, 1788, 150, 3, 488, 847, 1138, 2017]
+<function shape at 0x7f364cbf8510>
+12 1010 0.013855045661330223
+key_index = [617, 1346, 92, 663, 92, 1788, 150, 3, 488, 847, 1138, 2017, 1010]
+13 files, 0 corrects, accuracy = zero divided
+[0]

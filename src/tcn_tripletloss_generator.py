@@ -146,7 +146,7 @@ def train_aug():
     # 全フレーム取得、リストで
     all_frame = []
     # 柔軟性ないコードだけどまぁいいや
-    for i in range(10):
+    for i in range(12):
         path = '../../dataset/RakutenDS/triplet/{}/frame/'.format(str(i+1).zfill(3))
         frames = glob(os.path.join(path, '*'))
         all_frame.append(frames)
@@ -204,7 +204,7 @@ def train_aug():
     print("len(train_list), total_recipes = ", len(train_list), total_recipes)
     batchsize = 50
     train_epoch = int(sys.argv[2])
-    out_model_path = './../model_14/model/weights.{epoch:02d}.hd5'
+    out_model_path = './../model_15/model/weights.{epoch:02d}.hd5'
     checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
     tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
 
