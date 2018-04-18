@@ -1,0 +1,199 @@
+{
+    "name": "hamburg_anotherMovie",
+    "data": [
+        [
+            {
+                "folder": "1700000126"
+            },
+            {
+                "pic": [
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/02370.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/00480.png",
+                        "positive_index": 480
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/03510.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/01740.png",
+                        "positive_index": 1740
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/04920.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/02880.png",
+                        "positive_index": 2880
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/06750.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/04110.png",
+                        "positive_index": 4110
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/08550.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/07200.png",
+                        "positive_index": 7200
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/09240.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/07800.png",
+                        "positive_index": 7800
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/06540.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/04830.png",
+                        "positive_index": 4830
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/01020.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/01650.png",
+                        "positive_index": 1650
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/01680.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/02760.png",
+                        "positive_index": 2760
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/03810.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/03900.png",
+                        "positive_index": 3900
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/04200.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/04770.png",
+                        "positive_index": 4770
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/04590.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/05790.png",
+                        "positive_index": 5790
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/04920.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/06300.png",
+                        "positive_index": 6300
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/07020.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/06960.png",
+                        "positive_index": 6960
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/07410.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/07890.png",
+                        "positive_index": 7890
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/005/frame30/01560.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/01890.png",
+                        "positive_index": 1890
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/012/frame30/02310.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/02250.png",
+                        "positive_index": 2250
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/012/frame30/02580.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/02820.png",
+                        "positive_index": 2820
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/012/frame30/05640.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/04140.png",
+                        "positive_index": 4140
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/012/frame30/06870.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/06270.png",
+                        "positive_index": 6270
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/02640.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/00600.png",
+                        "positive_index": 600
+                    },
+                    {
+                        "anchor": "../../dataset/RakutenDS/triplet/011/frame30/02190.png",
+                        "positive": "../../dataset/RakutenDS/triplet/013/frame/00480.png",
+                        "positive_index": 480
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/01020.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/01650.png",
+                        "positive_index": 1650
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/01680.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/02760.png",
+                        "positive_index": 2760
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/03810.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/03900.png",
+                        "positive_index": 3900
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/04200.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/04770.png",
+                        "positive_index": 4770
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/04590.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/05790.png",
+                        "positive_index": 5790
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/04920.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/06300.png",
+                        "positive_index": 6300
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/07020.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/06960.png",
+                        "positive_index": 6960
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/07410.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/07890.png",
+                        "positive_index": 7890
+                    },
+                    {
+                        "anchor": "triplet/005/frame30/01560.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/01890.png",
+                        "positive_index": 1890
+                    },
+                    {
+                        "anchor": "triplet/012/frame30/02310.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/02250.png",
+                        "positive_index": 2250
+                    },
+                    {
+                        "anchor": "triplet/012/frame30/02580.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/02820.png",
+                        "positive_index": 2820
+                    },
+                    {
+                        "anchor": "triplet/012/frame30/05640.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/04140.png",
+                        "positive_index": 4140
+                    },
+                    {
+                        "anchor": "triplet/012/frame30/06870.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/06270.png",
+                        "positive_index": 6270
+                    },
+                    {
+                        "anchor": "triplet/011/frame30/02640.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/00600.png",
+                        "positive_index": 600
+                    },
+                    {
+                        "anchor": "triplet/011/frame30/02190.png ",
+                        "positive": "/Users/Sobue/Downloads/YummyFTP/RakutenDS/triplet/013/frame/00480.png",
+                        "positive_index": 480
+                    }
+                ]
+            }
+        ]
+    ]
+}
