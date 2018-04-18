@@ -1,14 +1,14 @@
 from keras.applications.vgg16 import VGG16
-from keras.applications.vgg16 import preprocess_input
+# from keras.applications.vgg16 import preprocess_input
 from keras.applications.inception_v3 import InceptionV3
 from keras.preprocessing import image
 from keras.models import Model
 from keras.layers import Input, merge, Flatten, Embedding, Dense, GlobalAveragePooling2D, Lambda
 from keras import backend as K
-import keras
+# import keras
 from keras.models import load_model, model_from_json
 import random
-import keras.backend.tensorflow_backend as KTF
+# import keras.backend.tensorflow_backend as KTF
 
 import numpy as np
 from glob import glob
@@ -16,7 +16,7 @@ import os
 import sys
 import time
 
-import pandas as pd
+# import pandas as pd
 import logging
 
 import matplotlib as mpl
@@ -182,7 +182,7 @@ def make_tensor(all_confidences, order_num, alpha):
 
     for i in range(0,order_num):
         table[i][i] = 0
-        
+
     for i in range(0,order_num-1):
         table[i][i+1] = 0.02
 
@@ -316,141 +316,145 @@ def test():
     model = build_predict(base_model, input_shape=input_shape)
     model.summary()
 
-    dlist_v1 = glob(os.path.join(sys.argv[1], '*'))
-    dlist_v2 = glob(os.path.join(sys.argv[2], '*'))
+    dlist_v1 = []
+    dlist_v2 = []
+    dlist_v1.append(sys.argv[1])
+    dlist_v2.append(sys.argv[2])
+
 
     dlist_v1.sort()
     dlist_v2.sort()
 
     result = []
-    key_index = []
+    key_indexs = []
 
     # 全部のepochいじるときはfor文を有効に
-    # for epoch in range(int(sys.argv[3])):
-    # epoch = str(epoch+1).zfill(2)
-    # logger.log(30, 'epoch {}'.format(epoch))
+    for epoch in range(int(sys.argv[3])):
+        epoch = str(epoch+1).zfill(2)
+        logger.log(30, 'epoch {}'.format(epoch))
 
-    # model.load_weights('./../model/weights.{}.hd5'.format(epoch))
-    model.load_weights('../model_15/model/weights.{}.hd5'.format(sys.argv[3]))
+        model.load_weights('/root/ex20/model/weights.{}.hd5'.format(epoch))
+        # model.load_weights('../model_03/model/weights.{}.hd5'.format(sys.argv[3]))
 
-    query = 0
-    correct = 0
-    all_distances = []
-    all_confidences = []
+        query = 0
+        correct = 0
+        all_distances = []
+        all_confidences = []
 
-    for dirs in zip(dlist_v1, dlist_v2):
-        flist_v1 = glob(os.path.join(dirs[0], '*.png'))
-        flist_v2 = glob(os.path.join(dirs[1], '*.png'))
-        flist_v1.sort()
-        flist_v2.sort()
-        # print (len(flist_v1), len(flist_v2))
-        logger.log(30, '{} {}'.format(len(flist_v1), len(flist_v2)))
-        query += len(flist_v1)
+        print(dlist_v1, dlist_v2)
 
-        q_feats = []
-        for index, img in enumerate(flist_v2):
-            if index%100 == 0:
-                # print("flist_v2", j)
-                logger.log(30, "flist_v2 {}".format(index))
-            q_img = get_img(img)
-            q_img = np.expand_dims(q_img, axis=0)
-            q_feat = model.predict(q_img,batch_size=1)
-            q_feats.append(q_feat)
+        for dirs in zip(dlist_v1, dlist_v2):
+            print(dirs)
+            flist_v1 = glob(os.path.join(dirs[0], '*.png'))
+            flist_v2 = glob(os.path.join(dirs[1], '*.png'))
+            flist_v1.sort()
+            flist_v2.sort()
+            # print (len(flist_v1), len(flist_v2))
+            logger.log(30, '{} {}'.format(len(flist_v1), len(flist_v2)))
+            query += len(flist_v1)
 
-        min_index = 0
-        for i, ref in enumerate(flist_v1):
+            q_feats = []
+            for index, img in enumerate(flist_v2):
+                if index%100 == 0:
+                    # print("flist_v2", j)
+                    logger.log(30, "flist_v2 {}".format(index))
+                q_img = get_img(img)
+                q_img = np.expand_dims(q_img, axis=0)
+                q_feat = model.predict(q_img,batch_size=1)
+                q_feats.append(q_feat)
 
-            # 手順画像ごとに実行
+            min_index = 0
+            for i, ref in enumerate(flist_v1):
 
-            # initialize-------------------
-            #top500
-            # rank_dist = []
-            # rank_index = []
-            # for i in range(500):
-            #     rank_dist.append(100)
-            #     rank_index.append(0)
+                # 手順画像ごとに実行
 
-            # top5
-            # rank_dist = [100,100,100,100,100]
-            # rank_index = [0,0,0,0,0]
-            # -----------------------------
+                # initialize-------------------
+                #top500
+                # rank_dist = []
+                # rank_index = []
+                # for i in range(500):
+                #     rank_dist.append(100)
+                #     rank_index.append(0)
 
-            ref_img = get_img(ref)
-            ref_img = np.expand_dims(ref_img, axis=0)
-            r_feat = model.predict(ref_img,batch_size=1)
-            print(r_feat)
+                # top5
+                # rank_dist = [100,100,100,100,100]
+                # rank_index = [0,0,0,0,0]
+                # -----------------------------
 
-            min_dist = 1000
-            nn = 0
+                ref_img = get_img(ref)
+                ref_img = np.expand_dims(ref_img, axis=0)
+                r_feat = model.predict(ref_img,batch_size=1)
 
-            confidences = []
-            distances = []
-            for j in range(min_index, len(q_feats)):
-                dist = np.linalg.norm( r_feat[0] - q_feats[j][0])
+                min_dist = 1000
+                nn = 0
+                key_index = []
+                confidences = []
+                distances = []
 
-                # 手順画像に対してフレーム１枚ごとに実行
+                for j in range(min_index, len(q_feats)):
+                    dist = np.linalg.norm( r_feat[0] - q_feats[j][0])
+
+                    # 手順画像に対してフレーム１枚ごとに実行
+
+                    # top1
+                    if dist < min_dist:
+                        min_dist = dist
+                        nn = j
+
+                    distances.append(dist)
+                    confidences.append(1.0 - dist)
+
+
+                    # top5
+                    # rank_dist, rank_index = top5(rank_dist, rank_index, dist, j)
+
+                    # top500
+                    # rank_dist, rank_index = top500(rank_dist, rank_index, dist, j)
+
+                # confidence_graph(confidences, i)
+                all_distances.append(distances)
+                all_confidences.append(confidences)
+
+                na = np.array(all_confidences, dtype=np.float)
+                logger.log(30, np.shape)
 
                 # top1
-                if dist < min_dist:
-                    min_dist = dist
-                    nn = j
+                logger.log(30, '{} {} {}'.format(i, nn, min_dist))
+                file_index = (os.path.basename(flist_v2[nn])).split('.')[0]
+                key_indexs.append(int(file_index))
+                logger.log(30, 'file_index = {}'.format(file_index))
+                logger.log(30, '{}'.format(ref))
+                logger.log(30, '{}'.format(flist_v2[nn]))
 
-                distances.append(dist)
-                confidences.append(1.0 - dist)
 
 
                 # top5
-                # rank_dist, rank_index = top5(rank_dist, rank_index, dist, j)
+                # logger.log(30, '{} rank_dist = {} rank_index = {}'.format(i, rank_dist, rank_index))
 
                 # top500
-                # rank_dist, rank_index = top500(rank_dist, rank_index, dist, j)
+                # logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
+                # min_index = min(rank_index)
+                # logger.log(30, 'min_index = {}'.format(min_index))
 
-            confidence_graph(confidences, i)
-            all_distances.append(distances)
-            all_confidences.append(confidences)
+                if i == nn:
+                    correct += 1
 
-            na = np.array(all_confidences, dtype=np.float)
-            logger.log(30, np.shape)
+            # path = nx.dijkstra_path(make_tensor(all_distances, len(flist_v1), 0.6), 0, len(flist_v1)*len(flist_v2))
 
-            # top1
-            logger.log(30, '{} {} {}'.format(i, nn, min_dist))
-            key_index.append(nn)
-            logger.log(30, 'key_index = {}'.format(key_index))
+            # order_path = []
+            # now = -1
+            # for i, pa in enumerate(path):
+            #     pa = pa % len(flist_v1)
+            #     if now != pa:
+            #         now = pa
+            #         print(i)
+            #         order_path.append(pa)
+            #
+            # print("order_path = ",order_path)
 
-            # top5
-            # logger.log(30, '{} rank_dist = {} rank_index = {}'.format(i, rank_dist, rank_index))
+        logger.log(30,"key_indexs = {}".format(key_indexs))
 
-            # top500
-            # logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
-            # min_index = min(rank_index)
-            # logger.log(30, 'min_index = {}'.format(min_index))
-
-            if i == nn:
-                correct += 1
-
-        # path, cost = search(make_tensor(all_confidences, len(flist_v1), 1), 0, len(flist_v1)*len(flist_v2))
-        path = nx.dijkstra_path(make_tensor(all_distances, len(flist_v1), 0.6), 0, len(flist_v1)*len(flist_v2))
-
-        order_path = []
-        now = -1
-        for i, pa in enumerate(path):
-            pa = pa % len(flist_v1)
-            if now != pa:
-                now = pa
-                print(i)
-                order_path.append(pa)
-
-        print("order_path = ",order_path)
-
-    if correct == 0:
-        logger.log(30, "{} files, {} corrects, accuracy = zero divided".format(query, correct))
-        result.append(0)
-    else:
-        logger.log(30, "{} files, {} corrects, accuracy = {}".format(query, correct, float(correct / query)))
-        result.append(float(correct / query))
-
-
-    logger.log(30, result)
+        logger.log(30, result)
 
 if __name__ == '__main__':
     # train_aug()

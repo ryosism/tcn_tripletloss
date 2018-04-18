@@ -136,7 +136,7 @@ def test():
     # CRITICAL	50	停止など致命的な問題
 
     # ログのファイル出力先を設定（3）
-    fh = logging.FileHandler('output_test.log')
+    fh = logging.FileHandler('output_value1_{}.log'.format(time.strftime("%Y%m%d_%H:%M:%S", parsed)))
     logger.addHandler(fh)
 
     # ログのコンソール出力の設定（4）
@@ -153,8 +153,13 @@ def test():
     model = build_predict(base_model, input_shape=input_shape)
     model.summary()
 
-    dlist_v1 = glob(path.join(sys.argv[1], '*'))
-    dlist_v2 = glob(path.join(sys.argv[2], '*'))
+#    dlist_v1 = glob(path.join(sys.argv[1], '*'))
+#    dlist_v2 = glob(path.join(sys.argv[2], '*'))
+
+    dlist_v1 = []
+    dlist_v2 = []
+    dlist_v1.append(sys.argv[1])
+    dlist_v2.append(sys.argv[2])
 
     dlist_v1.sort()
     dlist_v2.sort()
@@ -167,7 +172,7 @@ def test():
 
         logger.log(30, 'epoch {}'.format(epoch))
 
-        model.load_weights('../model_15/model/weights.{}.hd5'.format(str(epoch)))
+        model.load_weights('../model_03/model/weights.{}.hd5'.format(str(epoch)))
 
         query = 0
         correct = 0
