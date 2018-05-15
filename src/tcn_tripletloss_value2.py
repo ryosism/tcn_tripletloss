@@ -33,7 +33,14 @@ import networkx as nx
 def identity_loss(y_true, y_pred):
     return K.mean(y_pred - 0 * y_true)
 
+def visualize_vec(vec):
+    anchor, positive, negative = vec
+    print("anchor = {}".format(anchor))
+    # この下にt-sneを書いていきたい
+
 def triplet_loss(vec, alpha = 0.2):
+    visualize_vec(vec)
+
     anchor, positive, negative = vec
     d_p = K.sum(K.square(anchor - positive), axis = -1)
     d_n = K.sum(K.square(anchor - negative), axis = -1)
@@ -43,6 +50,10 @@ def triplet_loss(vec, alpha = 0.2):
 def top5(rank_dist, rank_index, new, index):
     for i, score in enumerate(rank_dist):
         if float(new) < score:
+            for frame in rank_index:
+                if index in range(frame-150, frame+150):
+                    return rank_dist, rank_index
+
             rank_dist.insert(i, float(new))
             rank_dist.pop(5)
             rank_index.insert(i, index)
@@ -316,6 +327,11 @@ def test():
     model = build_predict(base_model, input_shape=input_shape)
     model.summary()
 
+    # glob対象が複数の場合はこっち
+    # dlist_v1 = glob(os.path.join(sys.argv[1], '*'))
+    # dlist_v2 = glob(os.path.join(sys.argv[2], '*'))
+
+    # glob対象が単一ディレクトリの場合はこっち
     dlist_v1 = []
     dlist_v2 = []
     dlist_v1.append(sys.argv[1])
@@ -333,7 +349,7 @@ def test():
         epoch = str(epoch+1).zfill(2)
         logger.log(30, 'epoch {}'.format(epoch))
 
-        model.load_weights('/root/ex20/model/weights.{}.hd5'.format(epoch))
+        model.load_weights('/root/ex24/model/weights.{}.hd5'.format(epoch))
         # model.load_weights('../model_03/model/weights.{}.hd5'.format(sys.argv[3]))
 
         query = 0
@@ -377,8 +393,8 @@ def test():
                 #     rank_index.append(0)
 
                 # top5
-                # rank_dist = [100,100,100,100,100]
-                # rank_index = [0,0,0,0,0]
+                rank_dist = [100,100,100,100,100]
+                rank_index = [0,0,0,0,0]
                 # -----------------------------
 
                 ref_img = get_img(ref)
@@ -406,7 +422,7 @@ def test():
 
 
                     # top5
-                    # rank_dist, rank_index = top5(rank_dist, rank_index, dist, j)
+                    rank_dist, rank_index = top5(rank_dist, rank_index, dist, j)
 
                     # top500
                     # rank_dist, rank_index = top500(rank_dist, rank_index, dist, j)
@@ -429,7 +445,7 @@ def test():
 
 
                 # top5
-                # logger.log(30, '{} rank_dist = {} rank_index = {}'.format(i, rank_dist, rank_index))
+                logger.log(30, '{} rank_dist = {} rank_index = {}'.format(i, rank_dist, rank_index))
 
                 # top500
                 # logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
@@ -453,7 +469,6 @@ def test():
             # print("order_path = ",order_path)
 
         logger.log(30,"key_indexs = {}".format(key_indexs))
-
         logger.log(30, result)
 
 if __name__ == '__main__':

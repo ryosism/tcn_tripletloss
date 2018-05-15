@@ -1,0 +1,605 @@
+2018-04-19 03:06:07.959677: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-04-19 03:06:08.151871: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+totalMemory: 11.92GiB freeMemory: 11.78GiB
+2018-04-19 03:06:08.151932: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+/opt/conda/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+tcn_tripletloss_value2.py:109: UserWarning: Update your `Model` call to the Keras 2 API: `Model(outputs=Tensor("de..., inputs=Tensor("in...)`
+  model = Model(input = inception_model.input, output = x)
+tcn_tripletloss_value2.py:133: UserWarning: Update your `Model` call to the Keras 2 API: `Model(outputs=Tensor("mo..., inputs=Tensor("in...)`
+  return Model(input=input_img, output=out)
+epoch 01
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f2085b11d90>
+0 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+1 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/10.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+2 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/11.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+3 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/12.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+4 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/13.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+5 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/2.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+6 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+7 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+8 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+9 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+10 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/7.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+11 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/8.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+12 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/9.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+13 files, 1 corrects, accuracy = 0.07692307692307693
+[0.07692307692307693]
+epoch 02
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f2085b11d90>
+0 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+1 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/10.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+2 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/11.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+3 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/12.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+4 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/13.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+5 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/2.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+6 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+7 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+8 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+9 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+10 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/7.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+11 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/8.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+12 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/9.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+13 files, 1 corrects, accuracy = 0.07692307692307693
+[0.07692307692307693, 0.07692307692307693]
+epoch 03
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f2085b11d90>
+0 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+1 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/10.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+2 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/11.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+3 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/12.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+4 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/13.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+5 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/2.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+6 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+7 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+8 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+9 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+10 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/7.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+11 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/8.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+12 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/9.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+13 files, 1 corrects, accuracy = 0.07692307692307693
+[0.07692307692307693, 0.07692307692307693, 0.07692307692307693]
+epoch 04
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f2085b11d90>
+0 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+1 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/10.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+2 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/11.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+3 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/12.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+4 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/13.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+5 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/2.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+6 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+7 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+8 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+9 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+10 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/7.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+11 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/8.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+12 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/9.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+13 files, 1 corrects, accuracy = 0.07692307692307693
+[0.07692307692307693, 0.07692307692307693, 0.07692307692307693, 0.07692307692307693]
+epoch 05
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f2085b11d90>
+0 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+1 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/10.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+2 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/11.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+3 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/12.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+4 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/13.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+5 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/2.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+6 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+7 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+8 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+9 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+10 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/7.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+11 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/8.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+12 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/9.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+13 files, 1 corrects, accuracy = 0.07692307692307693
+[0.07692307692307693, 0.07692307692307693, 0.07692307692307693, 0.07692307692307693, 0.07692307692307693]
+epoch 06
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900
+flist_v2 2000
+flist_v2 2100
+flist_v2 2200
+flist_v2 2300
+flist_v2 2400
+flist_v2 2500
+<function shape at 0x7f2085b11d90>
+0 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+1 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/10.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+2 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/11.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+3 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/12.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+4 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/13.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+5 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/2.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+6 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+7 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+8 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+9 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+10 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/7.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+11 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/8.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+<function shape at 0x7f2085b11d90>
+12 0 0.0
+file_index = 00001
+../../dataset/RakutenDS/triplet/input/test_anchor/1860001109/9.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/hamburg_myattention/00001.png
+13 files, 1 corrects, accuracy = 0.07692307692307693
+[0.07692307692307693, 0.07692307692307693, 0.07692307692307693, 0.07692307692307693, 0.07692307692307693, 0.07692307692307693]
+epoch 07
+13 2600
+flist_v2 0
+flist_v2 100
+flist_v2 200
+flist_v2 300
+flist_v2 400
+flist_v2 500
+flist_v2 600
+flist_v2 700
+flist_v2 800
+flist_v2 900
+flist_v2 1000
+flist_v2 1100
+flist_v2 1200
+flist_v2 1300
+flist_v2 1400
+flist_v2 1500
+flist_v2 1600
+flist_v2 1700
+flist_v2 1800
+flist_v2 1900

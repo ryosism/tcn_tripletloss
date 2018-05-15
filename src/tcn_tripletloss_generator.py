@@ -2,11 +2,10 @@ from keras.applications.vgg16 import VGG16
 from keras.applications.vgg16 import preprocess_input
 from keras.applications.inception_v3 import InceptionV3
 from keras.preprocessing import image
-from keras.models import Model
+from keras.models import Model, load_model, model_from_json
 from keras.layers import Input, merge, Flatten, Embedding, Dense, GlobalAveragePooling2D, Lambda,Dropout
 from keras import backend as K
 import keras
-from keras.models import load_model, model_from_json
 import random
 import keras.backend.tensorflow_backend as KTF
 
@@ -20,20 +19,38 @@ import time
 
 import cv2
 
+# debuggers
+import pdb
+import tensorflow as tf
+from tensorflow.python import debug as tf_debug
+from tensorflow.python.debug.lib.debug_data import has_inf_or_nan
+
 # argv[]
 # argv[1] : json directoried
 # argv[2] : epoch_num
+
+def set_debugger_session():
+    sess = K.get_session()
+    sess = tf_debug.LocalCLIDebugWrapperSession(sess)
+    sess.add_tensor_filter('has_inf_or_nan', has_inf_or_nan)
+    K.set_session(sess)
+
+def whatIs_y_true(y_true, y_pred):
+    return y_true
+
+def whatIs_y_pred(y_true, y_pred):
+    return y_pred
 
 
 def identity_loss(y_true, y_pred):
     return K.mean(y_pred - 0 * y_true)
 
-def triplet_loss(vec, alpha = 0.2):
-    beta = 1.0
+
+def triplet_loss(vec, alpha = 1.0):
     anchor, positive, negative = vec
     d_p = K.sum(K.square(anchor - positive), axis = -1)
     d_n = K.sum(K.square(anchor - negative), axis = -1)
-    loss = K.mean(K.maximum(0.0, d_p)) # + beta * (K.mean(K.minimum(0.0, d_p - 0.1)))
+    loss = K.mean(K.maximum(0.0, d_p - d_n + alpha))
     return loss
 
 def create_base_network(model_name):
@@ -44,9 +61,9 @@ def create_base_network(model_name):
     elif model_name == 'inception':
         inception_model = InceptionV3(weights='imagenet', include_top=False)
         x = inception_model.get_layer('mixed5').output
-        x = GlobalAveragePooling2D()(x)
+        # x = GlobalAveragePooling2D()(x)
         x = Dense(1024, activation='relu')(x)
-        x = Dropout(0.2)(x)
+
         x = Dense(128)(x)
         model = Model(input = inception_model.input, output = x)
     return model
@@ -55,7 +72,7 @@ def triplet_output_shape(shapes):
     shape1, shape2, shape3 = shapes
     return (shape1[0], 1)
 
-def build(base_model, input_shape=(224, 224,3)):
+def build(base_model, input_shape=(224, 224, 3)):
     anchor = Input(shape=input_shape, name='input_anchor')
     positive = Input(shape=input_shape, name='input_positive')
     negative = Input(shape=input_shape, name='input_negative')
@@ -69,11 +86,6 @@ def build(base_model, input_shape=(224, 224,3)):
 
     return Model(input=[anchor, positive, negative], output=loss)
 
-def build_predict(base_model, input_shape=(224, 224,3)):
-    input_img = Input(shape=input_shape)
-    out = base_model(input_img)
-    return Model(input=input_img, output=out)
-
 
 def get_img(name):
     img = image.load_img(name, target_size=(224, 224))
@@ -83,7 +95,7 @@ def get_img(name):
     return x
 
 
-def random_batch_generator(all_frame, train_list, num_batches = 32):
+def random_batch_generator(all_frame, train_list, num_batches = 64):
     print('random_batch_generator called')
     flag = True
     while True:
@@ -143,7 +155,16 @@ def random_batch_generator(all_frame, train_list, num_batches = 32):
                     print("negative[0] = {}".format(negative))
                     flag = False
 
-                yield({'input_positive':np.asarray(pos, dtype=np.float32), 'input_negative':np.asarray(neg, dtype=np.float32), 'input_anchor':np.asarray(anc, dtype=np.float32)},{'triplet_loss':np.zeros((num_batches, 1), dtype = np.float32)})
+                yield(
+                    {
+                        'input_positive':np.asarray(pos, dtype=np.float32),
+                        'input_negative':np.asarray(neg, dtype=np.float32),
+                        'input_anchor':np.asarray(anc, dtype=np.float32)
+                    },
+                    {
+                        'triplet_loss':np.zeros((num_batches, 3), dtype = np.float32)
+                    }
+                )
                 pos = []
                 anc = []
                 neg = []
@@ -168,7 +189,7 @@ def train_aug():
         input_shape = (224, 224, 3)
     model = build(base_model, input_shape=input_shape)
     model.summary()
-    model.compile(optimizer='rmsprop', loss=identity_loss)
+    model.compile(optimizer=keras.optimizers.Adamax(), loss=identity_loss, metrics=[whatIs_y_pred, whatIs_y_true])
 
     model_arch = base_model.to_json()
     fout = open("base_model.json", 'w').write(model_arch)
@@ -212,18 +233,33 @@ def train_aug():
     print("len(train_list), total_recipes = ", len(train_list), total_recipes)
     batchsize = 64
 
-    tensorboard = keras.callbacks.TensorBoard(log_dir="./log/", write_graph=True)
+    tensorboard = keras.callbacks.TensorBoard(log_dir="./tensorboard/logs/", write_graph=True, write_images=1)
 
     now = time.ctime()
     parsed = time.strptime(now)
+
     csvlogger = keras.callbacks.CSVLogger('./csv/{}.csv'.format(time.strftime("%Y%m%d_%H:%M:%S", parsed)), separator=',', append=False)
+    history = keras.callbacks.History()
+
+    batch_print_callback = keras.callbacks.LambdaCallback(on_batch_end=lambda batch,logs: print("\nbatch = {},  logs = {}".format(batch, logs)))
+    pdb_callback = keras.callbacks.LambdaCallback(on_batch_end=lambda batch,logs: pdb.set_trace())
 
     train_epoch = int(sys.argv[2])
     for i in range(train_epoch):
 
-        out_model_path = '/root/ex22/model/weights.{}.hd5'.format(str(i).zfill(2))
+        now = time.ctime()
+
+        out_model_path = '/root/ex25/model/weights.{}.hd5'.format(str(i).zfill(2))
         checkpoint = keras.callbacks.ModelCheckpoint(out_model_path, verbose = 1)
-        logs = model.fit_generator(random_batch_generator(all_frame, train_list, batchsize), initial_epoch = i, steps_per_epoch = total_frames/batchsize, epochs = i+1, callbacks=[checkpoint, tensorboard, csvlogger])
+        logs = model.fit_generator(
+            random_batch_generator(all_frame, train_list, batchsize),
+            initial_epoch = i, steps_per_epoch = total_frames/batchsize,
+            epochs = i+1,
+            callbacks=[checkpoint, tensorboard, csvlogger, history]
+        )
+
+        parsed = time.strptime(now)
+        print('{}'.format(time.strftime("%Y%m%d_%H:%M:%S", parsed)))
 
         print("logs = ", logs)
 
