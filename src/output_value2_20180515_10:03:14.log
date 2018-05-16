@@ -1,0 +1,177 @@
+epoch 01
+5 2500
+flist_v2 0
+flist_v2 500
+flist_v2 1000
+flist_v2 1500
+flist_v2 2000
+0 304 0.12583427131175995
+file_index = 09150
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/09150.png
+rank_dist = [0.14662586152553558, 0.16147243976593018, 0.16873089969158173, 0.17904134094715118, 0.1844913512468338] 
+ rank_index = [600, 450, 1050, 300, 750] 
+ top5top5_filename=['', '', '', '', '']
+1 1787 0.09716716408729553
+file_index = 53640
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/53640.png
+rank_dist = [0.16456927359104156, 0.1773548424243927, 0.18017689883708954, 0.1813632994890213, 0.1872202306985855] 
+ rank_index = [1747, 2489, 1576, 2158, 2316] 
+ top5top5_filename=['', '', '', '', '']
+2 1175 0.11565780639648438
+file_index = 35280
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/35280.png
+rank_dist = [0.1321002095937729, 0.14825211465358734, 0.15153911709785461, 0.15788714587688446, 0.18652541935443878] 
+ rank_index = [1050, 1785, 2357, 600, 1545] 
+ top5top5_filename=['', '', '', '', '']
+3 1789 0.22269044816493988
+file_index = 53700
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/53700.png
+rank_dist = [0.23534081876277924, 0.26893898844718933, 0.2777710556983948, 0.29455193877220154, 0.30667644739151] 
+ rank_index = [1785, 600, 1050, 2199, 2357] 
+ top5top5_filename=['', '', '', '', '']
+4 1336 0.17940422892570496
+file_index = 40110
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/40110.png
+rank_dist = [0.20324641466140747, 0.21123109757900238, 0.22961321473121643, 0.2348826676607132, 0.24699126183986664] 
+ rank_index = [1350, 2473, 2151, 1050, 2301] 
+ top5top5_filename=['', '', '', '', '']
+key_indexs = [9150, 53640, 35280, 53700, 40110]
+epoch 02
+5 2500
+flist_v2 0
+flist_v2 500
+flist_v2 1000
+flist_v2 1500
+flist_v2 2000
+0 2364 0.17031991481781006
+file_index = 70950
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/70950.png
+rank_dist = [0.17223036289215088, 0.18500402569770813, 0.21495477855205536, 0.2202083170413971, 0.2230140119791031] 
+ rank_index = [1375, 2308, 2488, 1525, 2158] 
+ top5top5_filename=['', '', '', '', '']
+1 2470 0.06230512633919716
+file_index = 74130
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/74130.png
+rank_dist = [0.08457363396883011, 0.08875079452991486, 0.09110724925994873, 0.09232793003320694, 0.09236302226781845] 
+ rank_index = [1350, 1050, 1200, 2008, 2356] 
+ top5top5_filename=['', '', '', '', '']
+2 1732 0.05436128005385399
+file_index = 51990
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/51990.png
+rank_dist = [0.06939037889242172, 0.07241849601268768, 0.07377222180366516, 0.07480183988809586, 0.07505340874195099] 
+ rank_index = [2227, 1905, 450, 1128, 2380] 
+ top5top5_filename=['', '', '', '', '']
+3 2097 0.06770585477352142
+file_index = 62940
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/62940.png
+rank_dist = [0.08569515496492386, 0.08817292004823685, 0.0994204431772232, 0.10059431940317154, 0.10127715766429901] 
+ rank_index = [2368, 1578, 1428, 2218, 750] 
+ top5top5_filename=['', '', '', '', '']
+4 1367 0.05947721004486084
+file_index = 41040
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/41040.png
+rank_dist = [0.060904987156391144, 0.06573709845542908, 0.06647930294275284, 0.07084765285253525, 0.07162979990243912] 
+ rank_index = [2301, 1387, 1537, 1237, 2151] 
+ top5top5_filename=['', '', '', '', '']
+key_indexs = [9150, 53640, 35280, 53700, 40110, 70950, 74130, 51990, 62940, 41040]
+epoch 03
+5 2500
+flist_v2 0
+flist_v2 500
+flist_v2 1000
+flist_v2 1500
+flist_v2 2000
+0 464 0.10646618902683258
+file_index = 13950
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/13950.png
+rank_dist = [0.1295538693666458, 0.13252104818820953, 0.1356658637523651, 0.14476719498634338, 0.14879395067691803] 
+ rank_index = [600, 750, 900, 1132, 450] 
+ top5top5_filename=['', '', '', '', '']
+1 526 0.08675137907266617
+file_index = 15810
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/15810.png
+rank_dist = [0.10810543596744537, 0.11286736279726028, 0.11705485731363297, 0.11918259412050247, 0.12103912979364395] 
+ rank_index = [900, 1132, 600, 1788, 750] 
+ top5top5_filename=['', '', '', '', '']
+2 416 0.08233315497636795
+file_index = 12510
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/12510.png
+rank_dist = [0.10516949743032455, 0.11225526034832001, 0.11394947022199631, 0.11609415709972382, 0.12365195900201797] 
+ rank_index = [1132, 2093, 900, 150, 1720] 
+ top5top5_filename=['', '', '', '', '']
+3 394 0.13872160017490387
+file_index = 11850
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/11850.png
+rank_dist = [0.1666238009929657, 0.1683541089296341, 0.17113368213176727, 0.17346744239330292, 0.17941007018089294] 
+ rank_index = [900, 600, 1132, 1788, 150] 
+ top5top5_filename=['', '', '', '', '']
+4 527 0.07694610953330994
+file_index = 15840
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/15840.png
+rank_dist = [0.09377720206975937, 0.09845626354217529, 0.10978536307811737, 0.11160819977521896, 0.11512000858783722] 
+ rank_index = [1132, 900, 450, 150, 2093] 
+ top5top5_filename=['', '', '', '', '']
+key_indexs = [9150, 53640, 35280, 53700, 40110, 70950, 74130, 51990, 62940, 41040, 13950, 15810, 12510, 11850, 15840]
+epoch 04
+5 2500
+flist_v2 0
+flist_v2 500
+flist_v2 1000
+flist_v2 1500
+flist_v2 2000
+0 812 0.06969250738620758
+file_index = 24390
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/1.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/24390.png
+rank_dist = [0.09288797527551651, 0.11453180760145187, 0.13331827521324158, 0.15049520134925842, 0.15109223127365112] 
+ rank_index = [750, 600, 2489, 900, 1695] 
+ top5top5_filename=['', '', '', '', '']
+1 1009 0.16477002203464508
+file_index = 30300
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/3.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/30300.png
+rank_dist = [0.21551074087619781, 0.2694437503814697, 0.26984405517578125, 0.30356529355049133, 0.31362441182136536] 
+ rank_index = [750, 600, 2489, 1695, 2062] 
+ top5top5_filename=['', '', '', '', '']
+2 758 0.13585928082466125
+file_index = 22770
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/4.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/22770.png
+rank_dist = [0.1708093285560608, 0.23715640604496002, 0.2461474984884262, 0.24662353098392487, 0.2590753138065338] 
+ rank_index = [750, 2489, 600, 1511, 2243] 
+ top5top5_filename=['', '', '', '', '']
+3 1009 0.13332194089889526
+file_index = 30300
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/5.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/30300.png
+rank_dist = [0.1889866292476654, 0.23633113503456116, 0.24141359329223633, 0.24276600778102875, 0.2721560001373291] 
+ rank_index = [750, 2489, 2243, 600, 1511] 
+ top5top5_filename=['', '', '', '', '']
+4 591 0.08880721032619476
+file_index = 17760
+../../dataset/RakutenDS/triplet/input/test_anchor/1120005769/6.png
+../../dataset/RakutenDS/triplet/Hamburg_mitsuru/Hamburg_mitsuru30_resize/17760.png
+rank_dist = [0.11432895809412003, 0.15557824075222015, 0.17287030816078186, 0.19277635216712952, 0.1954289972782135] 
+ rank_index = [750, 600, 2489, 450, 900] 
+ top5top5_filename=['', '', '', '', '']
+key_indexs = [9150, 53640, 35280, 53700, 40110, 70950, 74130, 51990, 62940, 41040, 13950, 15810, 12510, 11850, 15840, 24390, 30300, 22770, 30300, 17760]
+epoch 05
+5 2500
+flist_v2 0
+flist_v2 500
+flist_v2 1000
