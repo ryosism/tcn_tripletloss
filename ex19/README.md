@@ -1,0 +1,3 @@
+# ex19(2018/04/10)
+誤差のパラメータを修正したけどlossが...
+```loss = K.mean(K.maximum(0.0, d_p - d_n + alpha) + K.maximum(0.0, d_p))```

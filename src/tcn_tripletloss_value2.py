@@ -6,7 +6,7 @@ from keras.models import Model
 from keras.layers import Input, merge, Flatten, Embedding, Dense, GlobalAveragePooling2D, Lambda
 from keras import backend as K
 # import keras
-from keras.models import load_model, model_from_json
+from keras.models import load_model
 import random
 # import keras.backend.tensorflow_backend as KTF
 
@@ -23,7 +23,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 
-import networkx as nx
+import json
 
 # argv[]
 # argv[1] : input directory for test_anchor
@@ -51,19 +51,39 @@ def top5(rank_dist, rank_index, new, index, filename, top5name):
     for i, dist in enumerate(rank_dist):
         if float(new) < dist:
             for frame in rank_index:
-                if index in range(frame-150, frame+150):
+                if index in range(frame-300, frame+300):
                     return rank_dist, rank_index, top5name
 
             rank_dist.insert(i, float(new))
             rank_dist.pop(5)
             rank_index.insert(i, index)
             rank_index.pop(5)
-            top5name.append(filename)
+            top5name.insert(i, os.path.abspath(filename))
             top5name.pop(5)
 
             return rank_dist, rank_index, top5name
 
     return rank_dist, rank_index, top5name
+
+
+def top20(rank_dist, rank_index, new, index, filename, top5name):
+    for i, dist in enumerate(rank_dist):
+        if float(new) < dist:
+            for frame in rank_index:
+                if index in range(frame-20, frame+20):
+                    return rank_dist, rank_index, top5name
+
+            rank_dist.insert(i, float(new))
+            rank_dist.pop(20)
+            rank_index.insert(i, index)
+            rank_index.pop(20)
+            top5name.insert(i, os.path.abspath(filename))
+            top5name.pop(20)
+
+            return rank_dist, rank_index, top5name
+
+    return rank_dist, rank_index, top5name
+
 
 def top500(rank_dist, rank_index, new, index):
     for i, score in enumerate(rank_dist):
@@ -189,31 +209,29 @@ def test():
     dlist_v1.sort()
     dlist_v2.sort()
 
-    result = []
     key_indexs = []
+    top5Corrects = []
+    allepoch_top5filenames = []
 
     # 全部のepochいじるときはfor文を有効に
     for epoch in range(int(sys.argv[3])):
         epoch = str(epoch+1).zfill(2)
         logger.log(30, 'epoch {}'.format(epoch))
 
-        model.load_weights('/root/ex24/model/weights.{}.hd5'.format(epoch))
-        # model.load_weights('../model_03/model/weights.{}.hd5'.format(sys.argv[3]))
+        model.load_weights('/root/ex25/model/weights.{}.hd5'.format(epoch))
 
         query = 0
         correct = 0
         all_distances = []
         all_confidences = []
-
-        print(dlist_v1, dlist_v2)
+        epoch_top5Indexes = []
+        epoch_top5filenames = []
 
         for dirs in zip(dlist_v1, dlist_v2):
-            print(dirs)
             flist_v1 = glob(os.path.join(dirs[0], '*.png'))
             flist_v2 = glob(os.path.join(dirs[1], '*.png'))
             flist_v1.sort()
             flist_v2.sort()
-            # print (len(flist_v1), len(flist_v2))
             logger.log(30, '{} {}'.format(len(flist_v1), len(flist_v2)))
             query += len(flist_v1)
 
@@ -228,22 +246,27 @@ def test():
                 q_feats.append(q_feat)
 
             min_index = 0
+            file = open("query.json", "w")
+            json.dump(flist_v1, file)
+            # -----------------------------------
             for i, ref in enumerate(flist_v1):
-
                 # 手順画像ごとに実行
-
-                # initialize-------------------
-                #top500
-                # rank_dist = []
-                # rank_index = []
-                # for i in range(500):
-                #     rank_dist.append(100)
-                #     rank_index.append(0)
 
                 # top5
                 rank_dist = [100,100,100,100,100]
                 rank_index = [0,0,0,0,0]
                 top5_filename = ["","","","",""]
+
+                # top20
+                rank_dist = []
+                rank_index = []
+                top5_filename = []
+                for i in range(20):
+                    rank_dist.append(100)
+                    rank_index.append(0)
+                    top5_filename.append("")
+
+
                 # -----------------------------
 
                 ref_img = get_img(ref)
@@ -252,7 +275,6 @@ def test():
 
                 min_dist = 1000
                 nn = 0
-                key_index = []
                 confidences = []
                 distances = []
 
@@ -271,11 +293,7 @@ def test():
                     confidences.append(1.0 - dist)
 
                     # top5
-                    rank_dist, rank_index, top5_filename = top5(rank_dist, rank_index, dist, j, flist_v2[j], top5_filename)
-                    logger.log(30, flist_v2[nn])
-
-                    # top500
-                    # rank_dist, rank_index = top500(rank_dist, rank_index, dist, j)
+                    rank_dist, rank_index, top5_filename = top20(rank_dist, rank_index, dist, j, flist_v2[j], top5_filename)
 
                 # confidence_graph(confidences, i)
                 all_distances.append(distances)
@@ -284,23 +302,30 @@ def test():
                 na = np.array(all_confidences, dtype=np.float)
 
                 # top1
-                logger.log(30, '{} {} {}'.format(i, nn, min_dist))
+                logger.log(30, '{} {} {}'.format(i+1, nn, min_dist))
                 file_index = (os.path.basename(flist_v2[nn])).split('.')[0]
                 key_indexs.append(int(file_index))
-                logger.log(30, 'file_index = {}'.format(file_index))
                 logger.log(30, '{}'.format(ref))
                 logger.log(30, '{}'.format(flist_v2[nn]))
 
                 # top5
-                logger.log(30, 'rank_dist = {} \nrank_index = {} \ntop5_filename={}'.format(rank_dist, rank_index, top5_filename))
+                logger.log(30, 'rank_dist = {} \nrank_index = {}'.format(rank_dist, rank_index))
+                epoch_top5Indexes.append(rank_index)
+                epoch_top5filenames.append(top5_filename)
+                for i, name in enumerate(top5_filename):
+                    logger.log(30, "top{} {}".format(i+1, name))
+
+                # このインデントは１つの手順画像が終わるごと
+            # このインデントは全部の手順画像が終わったとき
+        # このインデントはepochが終わった時
+        allepoch_top5filenames.append(epoch_top5filenames)
+        # logger.log(30, allepoch_top5filenames)
+    # このインデントは全てのepochが終わった時
 
                 # top500
                 # logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
                 # min_index = min(rank_index)
                 # logger.log(30, 'min_index = {}'.format(min_index))
-
-                if i == nn:
-                    correct += 1
 
             # path = nx.dijkstra_path(make_tensor(all_distances, len(flist_v1), 0.6), 0, len(flist_v1)*len(flist_v2))
 
@@ -316,6 +341,23 @@ def test():
             # print("order_path = ",order_path)
 
         logger.log(30,"key_indexs = {}".format(key_indexs))
+
+        import value2_top5_186 as value186
+        import value2_top5_112 as value112
+        import value2_top5_186_017 as value186_017
+        import value2_top5_112_017 as value112_017
+
+        top5Correct = value186.calcAccuracy(epoch_top5Indexes, logger)
+        # top5Correct = value112.calcAccuracy(epoch_top5Indexes, logger)
+        # top5Correct = value186_017.calcAccuracy(epoch_top5Indexes, logger)
+        # top5Correct = value112_017.calcAccuracy(epoch_top5Indexes, logger)
+
+        # logger.log(30, "top5_correct = {}".format(top5Correct))
+        # top5Corrects.append(top5Correct)
+        # logger.log(30, top5Corrects)
+
+    file = open("candidate.json", "w")
+    json.dump(allepoch_top5filenames, file)
 
 if __name__ == '__main__':
     # train_aug()

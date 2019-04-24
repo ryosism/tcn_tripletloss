@@ -1,0 +1,11 @@
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.05.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch05.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.10.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch10.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.20.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch20.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.30.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch30.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.40.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch40.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.50.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch50.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.60.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch60.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.70.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch70.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.80.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch80.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.90.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch90.pdf
+CUDA_VISIBLE_DEVICES=2 python predict_many.py /root/ex29/model/weights.99.hd5 /home/dataset/RakutenDS/triplet/input/frame_hamburgTrained/ /home/dataset/RakutenDS/triplet/input/hamburg_trained/ epoch99.pdf
