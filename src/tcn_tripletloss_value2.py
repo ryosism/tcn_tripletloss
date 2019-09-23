@@ -22,13 +22,14 @@ import logging
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-
 import json
+
 
 # argv[]
 # argv[1] : input directory for test_anchor
 # argv[2] : input directory for test_positive
 # argv[3] : epoch_num(max)
+# argv[4] : model(.hd5) directory
 
 def identity_loss(y_true, y_pred):
     return K.mean(y_pred - 0 * y_true)
@@ -51,7 +52,7 @@ def top5(rank_dist, rank_index, new, index, filename, top5name):
     for i, dist in enumerate(rank_dist):
         if float(new) < dist:
             for frame in rank_index:
-                if index in range(frame-300, frame+300):
+                if index in range(frame-30, frame+30):
                     return rank_dist, rank_index, top5name
 
             rank_dist.insert(i, float(new))
@@ -218,7 +219,7 @@ def test():
         epoch = str(epoch+1).zfill(2)
         logger.log(30, 'epoch {}'.format(epoch))
 
-        model.load_weights('/root/ex25/model/weights.{}.hd5'.format(epoch))
+        model.load_weights('{}/weights.{}.hd5'.format(sys.argv[4], epoch))
 
         query = 0
         correct = 0
@@ -253,19 +254,18 @@ def test():
                 # 手順画像ごとに実行
 
                 # top5
-                rank_dist = [100,100,100,100,100]
+                rank_dist = [1000,1000,1000,1000,1000]
                 rank_index = [0,0,0,0,0]
                 top5_filename = ["","","","",""]
 
                 # top20
-                rank_dist = []
-                rank_index = []
-                top5_filename = []
-                for i in range(20):
-                    rank_dist.append(100)
-                    rank_index.append(0)
-                    top5_filename.append("")
-
+                # rank_dist = []
+                # rank_index = []
+                # top5_filename = []
+                # for i in range(20):
+                #     rank_dist.append(100)
+                #     rank_index.append(0)
+                #     top5_filename.append("")
 
                 # -----------------------------
 
@@ -293,7 +293,7 @@ def test():
                     confidences.append(1.0 - dist)
 
                     # top5
-                    rank_dist, rank_index, top5_filename = top20(rank_dist, rank_index, dist, j, flist_v2[j], top5_filename)
+                    rank_dist, rank_index, top5_filename = top5(rank_dist, rank_index, dist, j, flist_v2[j], top5_filename)
 
                 # confidence_graph(confidences, i)
                 all_distances.append(distances)
@@ -305,8 +305,8 @@ def test():
                 logger.log(30, '{} {} {}'.format(i+1, nn, min_dist))
                 file_index = (os.path.basename(flist_v2[nn])).split('.')[0]
                 key_indexs.append(int(file_index))
-                logger.log(30, '{}'.format(ref))
-                logger.log(30, '{}'.format(flist_v2[nn]))
+                logger.log(30, 'query = {}'.format(ref))
+                logger.log(30, 'top1 = {}'.format(flist_v2[nn]))
 
                 # top5
                 logger.log(30, 'rank_dist = {} \nrank_index = {}'.format(rank_dist, rank_index))
@@ -321,11 +321,6 @@ def test():
         allepoch_top5filenames.append(epoch_top5filenames)
         # logger.log(30, allepoch_top5filenames)
     # このインデントは全てのepochが終わった時
-
-                # top500
-                # logger.log(30, 'order {} \n rank_dist = {} \n rank_index = {}'.format(i, rank_dist, rank_index))
-                # min_index = min(rank_index)
-                # logger.log(30, 'min_index = {}'.format(min_index))
 
             # path = nx.dijkstra_path(make_tensor(all_distances, len(flist_v1), 0.6), 0, len(flist_v1)*len(flist_v2))
 
@@ -342,12 +337,12 @@ def test():
 
         logger.log(30,"key_indexs = {}".format(key_indexs))
 
-        import value2_top5_186 as value186
-        import value2_top5_112 as value112
-        import value2_top5_186_017 as value186_017
-        import value2_top5_112_017 as value112_017
-
-        top5Correct = value186.calcAccuracy(epoch_top5Indexes, logger)
+        # import value2_top5_186 as value186
+        # import value2_top5_112 as value112
+        # import value2_top5_186_017 as value186_017
+        # import value2_top5_112_017 as value112_017
+        #
+        # top5Correct = value186.calcAccuracy(epoch_top5Indexes, logger)
         # top5Correct = value112.calcAccuracy(epoch_top5Indexes, logger)
         # top5Correct = value186_017.calcAccuracy(epoch_top5Indexes, logger)
         # top5Correct = value112_017.calcAccuracy(epoch_top5Indexes, logger)
@@ -358,6 +353,8 @@ def test():
 
     file = open("candidate.json", "w")
     json.dump(allepoch_top5filenames, file)
+
+
 
 if __name__ == '__main__':
     # train_aug()
